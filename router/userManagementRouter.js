@@ -1,2 +1,2 @@
-const express=require('express')
-const admin_router=express()
+const express = require('express')
+const admin_router = express()

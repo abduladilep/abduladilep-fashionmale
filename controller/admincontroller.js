@@ -62,7 +62,7 @@ const userManagment = async (req, res) => {
 
     const showUser = await User.find({}).sort({ name: 1 })
 
-    res.render('adminpages/userManagment', { showUser ,msg:req.flash("invalid")})
+    res.render('adminpages/userManagment', { showUser, msg: req.flash("invalid") })
 }
 
 
@@ -78,8 +78,8 @@ const editUser = async (req, res) => {
         const user = await User.findById(userid)
         console.log(user);
         if (user.state == false) {
-            await User.findByIdAndUpdate(id, { state: true }) 
-                res.redirect('/admin/userMangment')
+            await User.findByIdAndUpdate(id, { state: true })
+            res.redirect('/admin/userMangment')
         } else {
             await User.findByIdAndUpdate(id, { state: false })
             res.redirect('/admin/userMangment')
@@ -92,9 +92,9 @@ const editUser = async (req, res) => {
 const productManagment = async (req, res) => {
     const brand = await Brand.find({})
     const category = await Category.find({})
-    const subcategory= await subCategory.find({})
+    const subcategory = await subCategory.find({})
 
-    res.render('adminPages/Brand', { brand,category,subcategory})
+    res.render('adminPages/Brand', { brand, category, subcategory })
 }
 
 

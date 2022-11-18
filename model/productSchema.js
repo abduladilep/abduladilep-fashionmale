@@ -34,7 +34,7 @@ const productSchema = new Schema(
             type: Number,
             trim: true
         },
-        image: [ {
+        image: [{
             url: String,
             filename: String,
         }],

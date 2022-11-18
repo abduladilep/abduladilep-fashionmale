@@ -13,31 +13,31 @@ const addBrand = async (req, res) => {
     console.log(req.body.brand);
 
     const newbrand = new Brand({
-        brand:brand
+        brand: brand
     })
-    try{
+    try {
         await newbrand.save()
         console.log(newbrand);
-        
-}catch(error){
-    req.flash=("msg","brand not exists")
 
-}
-res.redirect('/admin/productManagment')
+    } catch (error) {
+        req.flash = ("msg", "brand not exists")
 
-}
-
-
-const deleteBrand=async(req,res)=>{
-    try{
-     const {id}=req.params
-     const brand=await Brand.findByIdAndDelete(id)
-     res.redirect('/admin/productManagment')
-    }catch(err){
-     console.log(err);
     }
- 
- }
+    res.redirect('/admin/productManagment')
+
+}
 
 
-module.exports = {addBrand,deleteBrand}
+const deleteBrand = async (req, res) => {
+    try {
+        const { id } = req.params
+        const brand = await Brand.findByIdAndDelete(id)
+        res.redirect('/admin/productManagment')
+    } catch (err) {
+        console.log(err);
+    }
+
+}
+
+
+module.exports = { addBrand, deleteBrand }

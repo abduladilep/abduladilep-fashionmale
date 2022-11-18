@@ -1,8 +1,8 @@
 const bcrypt = require("bcrypt")
 const Category = require('../model/categorySchema')
-const subCategory =require('../model/subCategoryScheema')
+const subCategory = require('../model/subCategoryScheema')
 const Product = require('../model/productSchema')
-const Admin=require("../model/adminScheema")
+const Admin = require("../model/adminScheema")
 
 
 
@@ -24,40 +24,40 @@ const addCategory = async (req, res) => {
 
 
 
-const deleteCategory=async(req,res)=>{
-   try{
-    const {id}=req.params
-    const category=await Category.findByIdAndDelete(id)
-    
-    res.redirect('/admin/productManagment')
-   }catch(err){
-    console.log(err);
-   }
+const deleteCategory = async (req, res) => {
+    try {
+        const { id } = req.params
+        const category = await Category.findByIdAndDelete(id)
+
+        res.redirect('/admin/productManagment')
+    } catch (err) {
+        console.log(err);
+    }
 
 }
 
 
-const addsubCategory= async(req,res)=>{
+const addsubCategory = async (req, res) => {
 
     const subcategory = req.body.subcategory
-   const category =req.body.category
+    const category = req.body.category
 
-   console.log(category);
+    console.log(category);
 
 
-    const newsubCategory= new subCategory({
+    const newsubCategory = new subCategory({
 
-        subcategory:subcategory,
-        Categoryes:category
+        subcategory: subcategory,
+        Categoryes: category
     })
-    try{
+    try {
         await newsubCategory.save()
         console.log(newsubCategory);
-    } catch(error){
+    } catch (error) {
 
 
 
-        req.flash("msg",'subcategory already exist')
+        req.flash("msg", 'subcategory already exist')
     }
     res.redirect('/admin/productManagment')
 
@@ -65,18 +65,18 @@ const addsubCategory= async(req,res)=>{
 
 
 
-const deletesubCategory=async(req,res)=>{
-    try{
-     const {id}=req.params
-     const subcategory=await subCategory.findByIdAndDelete(id)
-     res.redirect('/admin/productManagment')
-    }catch(err){
-     console.log(err);
+const deletesubCategory = async (req, res) => {
+    try {
+        const { id } = req.params
+        const subcategory = await subCategory.findByIdAndDelete(id)
+        res.redirect('/admin/productManagment')
+    } catch (err) {
+        console.log(err);
     }
- 
- }
- 
+
+}
 
 
 
-module.exports={addCategory,deleteCategory,addsubCategory,deletesubCategory}
+
+module.exports = { addCategory, deleteCategory, addsubCategory, deletesubCategory }

@@ -148,6 +148,7 @@ const itemInc = async (req, res) => {
 
 
                 if (productExist) {
+                    
 
                     await CartItem.findOneAndUpdate({ $and: [{ userId }, { "cartItem.ProductId": productId }] }, { $inc: { "cartItem.$.quantity": 1 } })
                     let quantity = 0

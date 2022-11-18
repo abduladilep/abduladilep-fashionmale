@@ -1,23 +1,23 @@
-const mongoose=require('mongoose')
-const validator=require('mongoose-unique-validator')
+const mongoose = require('mongoose')
+const validator = require('mongoose-unique-validator')
 
-const adminSchema=new mongoose.Schema({
+const adminSchema = new mongoose.Schema({
 
-    Email:{
-        type:String,
-        required:true,
-        unique:true,
-        trim:true,
+    Email: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
     },
-    Password:{
-        type:String,
-        required:true,
-        trim:true,
+    Password: {
+        type: String,
+        required: true,
+        trim: true,
     },
 
-    state:{
-        type:Boolean,
-        required:true,
+    state: {
+        type: Boolean,
+        required: true,
 
     }
 
@@ -28,4 +28,4 @@ const adminSchema=new mongoose.Schema({
 adminSchema.plugin(validator)
 
 
-module.exports=mongoose.model('Admin',adminSchema)
+module.exports = mongoose.model('Admin', adminSchema)

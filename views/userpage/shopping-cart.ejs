@@ -13,7 +13,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
         rel="stylesheet">
 
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- Css Styles -->
@@ -28,10 +27,6 @@
 </head>
 
 <body>
-    <!-- Page Preloder -->
-    <!-- <div id="preloder">
-        <div class="loader"></div>
-    </div> -->
 
     <!-- Offcanvas Menu Begin -->
     <div class="offcanvas-menu-overlay"></div>
@@ -213,22 +208,16 @@
                                                                 <i class="fa fa-plus"></i>
                                                             </button>
 
-
                                                         </div>
 
                                                     </div>
                                                 </td>
-
 
                                                 <% const total=parseInt(p.itemQuantity)*parseInt(p2.product_price) %>
                                                     <td class="cart__price"> <span id="total<%= p.item %>">
                                                             <%= total %>
 
                                                         </span></td>
-
-
-
-
 
                                                     <td type="button" class="cart__close" data-bs-toggle="modal"
                                                         data-bs-target="#exampleModal<%=p.item %>"><i
@@ -239,22 +228,14 @@
                                                     </td>
 
                                 </tr>
-
-
                                 <%})%>
                                     <%})%>
 
                                         <%}%>
 
-
                             </tbody>
                         </table>
                     </div>
-
-
-
-
-
 
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
@@ -411,14 +392,11 @@
                     <script>
                         function inc(id) {
                             let cartid = String(id)
-
-                            // let discount = document.getElementById('discount').innerHTML
-                            // let count = document.getElementById(id).value
                             let price = document.getElementById('product_price' + id).innerHTML
                             let total = document.getElementById('total' + cartid)
                             let subtotal = document.getElementById('subtotal')
                             let grandtotal = document.getElementById('grandtotal')
-                            // let shipping=document.getElementById('shipping')
+                            let shipping = document.getElementById('shipping')
 
                             console.log("subtotalll", subtotal.innerHTML)
                             fetch('/cart/itemInc/' + id, {
@@ -437,17 +415,28 @@
                                     total.innerHTML = String(totals);
 
                                     document.getElementById('subtotal').innerHTML = Number(subtotal.innerHTML) + Number(price)
-                                    document.getElementById('grandtotal').innerHTML = Number(subtotal.innerHTML)
-                                    //    parseInt(document.getElementById('subtotal').innerHTML) + parseInt(document.getElementById('shipping').innerHTML) - parseInt(document.getElementById('discount').innerHTML)
+                                    if (subtotal.innerHTML > 15000) {
+                                        shipping.innerHTML = "0"
+                                    } else {
+                                        shipping.innerHTML = "150"
+                                    }
+                                    document.getElementById('grandtotal').innerHTML = Number(subtotal.innerHTML) + Number(shipping.innerHTML)
 
                                 })
                         }
 
                         function dec(id) {
 
-                            // let price = document.getElementById('price' + id).innerHTML
+
+                            let cartid = String(id)
+
+                            let price = document.getElementById('product_price' + id).innerHTML
+                            let total = document.getElementById('total' + cartid)
+                            let subtotal = document.getElementById('subtotal')
+                            let grandtotal = document.getElementById('grandtotal')
+                            let shipping = document.getElementById('shipping')
+
                             let count = document.getElementById(id).value
-                            // let row = document.getElementById('row' + id)
                             if (count > 1) {
 
 
@@ -461,22 +450,27 @@
                                 })
                                     .then(res => res.json())
                                     .then(data => {
-                                        success: location.reload()
+
+
                                         document.getElementById(id).value--
-                                        document.getElementById('total' + id).innerHTML = parseInt(product_price) * parseInt(document.getElementById(id).value)
+                                        let totals = parseInt(price) * parseInt(document.getElementById(cartid).value)
+                                        total.innerHTML = String(totals);
+
                                         document.getElementById('subtotal').innerHTML = parseInt(document.getElementById('subtotal').innerHTML) - parseInt(document.getElementById('product_price' + id).innerHTML)
-                                        // document.getElementById('grandtotal').innerHTML = parseInt(document.getElementById('subtotal').innerHTML) + parseInt(document.getElementById('shipping').innerHTML) - parseInt(document.getElementById('discount').innerHTML)
-                                        console.log(value);
+
+                                        if (subtotal.innerHTML > 15000) {
+                                            shipping.innerHTML = "0"
+                                        } else {
+                                            shipping.innerHTML = "150"
+                                        }
+                                        document.getElementById('grandtotal').innerHTML = Number(subtotal.innerHTML) + Number(shipping.innerHTML)
+
                                     })
                             }
                         }
 
 
                         function itemDel(id) {
-                            console.log(id);
-                            // let price = document.getElementById('price' + id).innerHTML
-                            // let count = document.getElementById(id).value
-                            // let row = document.getElementById('row' + id)
 
                             fetch('/cart/itemDel/' + id, {
                                 method: 'put',
