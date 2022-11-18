@@ -1,0 +1,35 @@
+{
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cloudinary": "^1.32.0",
+    "connect-flash": "^0.1.1",
+    "connect-mongodb-session": "^3.1.1",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "method-override": "^3.0.0",
+    "mongoos": "^0.0.1-security",
+    "mongoose": "^6.7.0",
+    "mongoose-unique-validator": "^3.1.0",
+    "multer": "^1.4.5-lts.1",
+    "multer-storage-cloudinary": "^4.0.0",
+    "muter": "^0.7.0",
+    "nodemailer": "^6.8.0",
+    "nodemon": "^2.0.20",
+    "otp-generator": "^4.0.0",
+    "session-file-store": "^1.5.0",
+    "unique": "^0.0.1",
+    "validator": "^13.7.0"
+  },
+  "name": "malefashion-master",
+  "description": "Thank you for using our template!",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
