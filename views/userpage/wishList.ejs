@@ -9,6 +9,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Male-Fashion | Template</title>
 
+    <!-- Sweet Alert -->
+
+    <script src="sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="sweetalert2.min.css">
+
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
         rel="stylesheet">
@@ -38,23 +43,16 @@
     <div class="offcanvas-menu-wrapper">
         <div class="offcanvas__option">
             <div class="offcanvas__links">
-                <a href="#">Sign in</a>
-                <a href="#">FAQs</a>
+                <a href="/Logout">Logout</a>
+
             </div>
-            <div class="offcanvas__top__hover">
-                <span>Usd <i class="arrow_carrot-down"></i></span>
-                <ul>
-                    <li>USD</li>
-                    <li>EUR</li>
-                    <li>USD</li>
-                </ul>
-            </div>
+
         </div>
         <div class="offcanvas__nav__option">
             <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
             <a href="#"><img src="img/icon/heart.png" alt=""></a>
-            <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
-            <div class="price">$0.00</div>
+            <a href="#"><img src="img/icon/cart.png" alt=""> <span></span></a>
+
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__text">
@@ -77,16 +75,9 @@
                         <div class="header__top__right">
                             <div class="header__top__links">
                                 <a href="#">Sign in</a>
-                                <a href="#">FAQs</a>
+
                             </div>
-                            <div class="header__top__hover">
-                                <span>Usd <i class="arrow_carrot-down"></i></span>
-                                <ul>
-                                    <li>USD</li>
-                                    <li>EUR</li>
-                                    <li>USD</li>
-                                </ul>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -115,6 +106,7 @@
                             </li>
                             <li><a href="/blog">Blog</a></li>
                             <li><a href="/contact">Contacts</a></li>
+
                         </ul>
                     </nav>
                 </div>
@@ -122,8 +114,9 @@
                     <div class="header__nav__option">
                         <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
                         <a href="/wishlist/wishlist"><img src="img/icon/heart.png" alt=""></a>
-                        <a href="/Cart/cart"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
-                        <div class="price">$0.00</div>
+                        <a href="/Cart/cart"><img src="img/icon/cart.png" alt=""> <span></span></a>
+
+
                     </div>
                 </div>
             </div>
@@ -151,12 +144,12 @@
     </section>
     <!-- Breadcrumb Section End -->
 
-    <!-- Shopping Cart Section Begin -->
+    <!-- wishlist Section Begin -->
     <section class="shopping-cart spad  ">
         <div class="container text-center">
             <div class="row ">
-                <div class="col-lg-8">
-                    <div class="shopping__cart__table ">
+                <div class="col ">
+                    <div class="shopping__cart__table  ">
                         <table>
                             <thead>
                                 <tr>
@@ -183,34 +176,37 @@
                                                         <h5>₹<span id="product_price<%=p.item %>">
                                                                 <%= p2.product_price %>
                                                             </span>
+
                                                         </h5>
-                                                    </div>
+                                                <td><a href="#" class="text-danger"
+                                                        onclick="cartList('<%= p.item %>')">Add To Cart</a></td>
 
-                                                </td>
-
-                                                <!-- <div>
-                                                    <td class="btn btn-primary">ADD to Cart </td>
-                                                </div> -->
-
-
-                                                <td type="button" class="cart__close" data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModal<%=p.item %>"><i
-                                                        class="fa fa-close"></i>
-                                                    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal<%=p.item %>"> -->
-                                                    <!-- <i class="material-icons">delete</i> -->
-                                                    </button>
-                                                </td>
-
-                                </tr>
-                                <%})%>
-                                    <%})%>
-
-                                        <%}%>
-                            </tbody>
-                        </table>
                     </div>
+
+                    </td>
+
+
+
+
+
+
+
+                    <td type="button" class="cart__close " data-bs-toggle="modal"
+                        data-bs-target="#exampleModal<%=p.item %>"><i class="fa fa-close"></i>
+
+                        </button>
+                    </td>
+
+                    </tr>
+                    <%})%>
+                        <%})%>
+
+                            <%}%>
+                                </tbody>
+                                </table>
                 </div>
             </div>
+        </div>
         </div>
     </section>
     <!-- Shopping Cart Section End -->
@@ -330,36 +326,60 @@
 
 
                         function cartList(id) {
-                            fetch('/cart/addToCart/' + id, {
-                                method: 'get',
+
+                            console.log(id);
+                            fetch('/cart/addToCart', {
+                                method: 'post',
                                 headers: {
-                                    'Content-type': 'application/json',
-                                    body: JSON.stringify({ hai: "jhj" })
-                                }
+                                    'Content-Type': 'application/json',
+
+                                },
+                                body: JSON.stringify({ id })
                             })
                                 .then(res => res.json())
                                 .then(data => {
+                                    // Swal.fire({
+                                    //     title: 'Sweet!',
+                                    //     text: 'Modal with a custom image.',
+                                    //     imageUrl: 'https://unsplash.it/400/200',
+                                    //     imageWidth: 400,
+                                    //     imageHeight: 200,
+                                    //     imageAlt: 'Custom image',
+                                    // }) 
+                                    // }).then(function(){
+
+
                                     success: location.reload()
+
+
                                 })
                         }
+
+                    </script>
+
+                    <script>
                         function deleteWishlist(id) {
+                            console.log(id);
                             fetch('/wishlist/deleteWishlistItem/' + id, {
                                 method: 'delete',
                                 headers: {
-                                    'Content-type': 'application/json',
-                                    body: JSON.stringify({ hai: "jhj" })
+                                    'Content-Type': 'application/json',
+                                    body: JSON.stringify({ hry: "as" })
                                 }
                             })
                                 .then(res => res.json())
                                 .then(data => {
+
+
                                     success: location.reload()
                                 })
+
                         }
                     </script>
 
 
 
-                    </script>
+
 
                     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
                         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -379,6 +399,7 @@
                     <script src="js/mixitup.min.js"></script>
                     <script src="js/owl.carousel.min.js"></script>
                     <script src="js/main.js"></script>
+                    <script src="sweetalert2.all.min.js"></script>
 </body>
 
 </html>

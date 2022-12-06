@@ -32,6 +32,8 @@ const categoryRouter=require('./router/categoryRouter')
 const brandRouter=require("./router/brandRouter")
 const cartRouter =require("./router/cartRouter")
 const wishlistRouter= require("./router/wishListRouter")
+const checkoutRouter=require('./router/ckeckOutRouter')
+const bannerRouter=require("./router/bannerRouter")
 
 const { collection } = require("./model/userScheema");
 
@@ -93,6 +95,8 @@ app.use('/category', categoryRouter)
 app.use('/brand', brandRouter)
 app.use('/Cart',cartRouter)
 app.use("/wishlist",wishlistRouter)
+app.use("/checkout",checkoutRouter)
+app.use("/banner",bannerRouter)
 
 
 
@@ -104,7 +108,7 @@ app.use("/wishlist",wishlistRouter)
 
 
 mongoose.connect('mongodb://127.0.0.1:27017/DATAS?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.5.4').then(() => {
-    app.listen(6008, () => { console.log('server running') })
+    app.listen(3005, () => { console.log('server running') })
 })
     .catch((err) => {
         console.log('there is error');

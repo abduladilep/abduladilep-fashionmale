@@ -50,8 +50,8 @@
         <div class="offcanvas__nav__option">
             <!-- <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a> -->
             <!-- <a href="/wishlist/wishlist"><img src="img/icon/heart.png"  class="" alt="hjkl"></a> -->
-            <a href="/Cart/cart"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
-            <h6>sdfghjjhgfdfghjkjhgf</h6>
+            <a href="/Cart/cart"><img src="img/icon/cart.png" alt=""> <span></span></a>
+            <h6></h6>
             
         </div>
         <div id="mobile-menu-wrap"></div>
@@ -74,22 +74,15 @@
                     <div class="col-lg-6 col-md-5">
                         <div class="header__top__right">
                             <div class="header__top__links">
-                                <% if(user){ %>
+                                <% if(userId){%>
                                     <a href="/Logout">Logout</a>
                                     <%}
                                     else{%>
                                         <a href="/signin">Sign in</a>
                                         <%} %>
-                                        <a href="#">FAQs</a>
+                                        
                                     </div>
-                                    <div class="header__top__hover">
-                                        <span>Usd <i class="arrow_carrot-down"></i></span>
-                                <ul>
-                                    <li>USD</li>
-                                    <li>EUR</li>
-                                    <li>USD</li>
-                                </ul>
-                            </div>
+                                   
                         </div>
                     </div>
                 </div>
@@ -110,14 +103,14 @@
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
                                     <li><a href="/about">About Us</a></li>
-                                    <li><a href="/shop-details">Shop Details</a></li>
+                                    <li><a href="//product/productDetails">Shop Details</a></li>
                                     <li><a href="/Cart/cart">Shopping Cart</a></li>
-                                    <li><a href="/checkout">Check Out</a></li>
+                                    <li><a href="/checkout/checkout">Check Out</a></li>
                                     <li><a href="/wishlist/wishlist">wishlist</a></li>
                                 </ul>
                                 
                             </li>
-                            <li><a href="/blog">Blog</a></li>
+                            <li><a href="/myaccount">Account</a></li>
                             <li><a href="/contact">Contacts</a></li>
                         </ul>
                     </nav>
@@ -126,7 +119,7 @@
                     <div class="header__nav__option">
                         <a href="" class="search-switch"><img src="img/icon/search.png" alt=""></a>
                         <a href="/wishlist/wishlist"><img src="img/icon/heart.png" alt=""></a>
-                        <a href="/Cart/cart"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
+                        <a href="/Cart/cart"><img src="img/icon/cart.png" alt=""> <span></span></a>
                         <!-- <div class="price">$0.00</div> -->
                     </div>
                 </div>
@@ -138,17 +131,19 @@
 
     <!-- Hero Section Begin -->
     <section class="hero">
-        <div class="hero__slider owl-carousel">
-            <div class="hero__items set-bg" data-setbg="img/hero/hero-1.jpg">
+        <div class="hero__slider owl-carousel" >
+            <% for(let i=0 ; i < 1; i++ ) { %>
+                <div class="hero__items set-bg "  data-setbg="<%= banner[0].images[0].url %>">
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-5 col-lg-7 col-md-8">
                             <div class="hero__text">
-                                <h6>Summer Collection</h6>
-                                <h2>Fall - Winter Collections 2030</h2>
-                                <p>A specialist label creating luxury essentials. Ethically crafted with an unwavering
-                                    commitment to exceptional quality.</p>
-                                <a href="#" class="primary-btn">Shop now <span class="arrow_right"></span></a>
+                                <h6><%=banner[0].highlight %></h6>
+
+                                <h2> <%=banner[0].highlight %>  </h2>
+                               
+                                <p><%= banner[0].description %> </p>
+                                <a href="/shop" class="primary-btn">Shop now <span class="arrow_right"></span></a>
                                 <div class="hero__social">
                                     <a href="#"><i class="fa fa-facebook"></i></a>
                                     <a href="#"><i class="fa fa-twitter"></i></a>
@@ -160,16 +155,18 @@
                     </div>
                 </div>
             </div>
-            <div class="hero__items set-bg" data-setbg="img/hero/hero-2.jpg">
+            <% } %>
+
+            <% for(let i=1 ; i < 2; i++ ) { %>
+                <div class="hero__items set-bg" data-setbg="<%= banner[1].images[0].url %>">
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-5 col-lg-7 col-md-8">
                             <div class="hero__text">
-                                <h6>Summer Collection</h6>
-                                <h2>Fall - Winter Collections 2030</h2>
-                                <p>A specialist label creating luxury essentials. Ethically crafted with an unwavering
-                                    commitment to exceptional quality.</p>
-                                <a href="#" class="primary-btn">Shop now <span class="arrow_right"></span></a>
+                                <h6><%=banner[1].highlight %></h6>
+                                <h2><%=banner[1].highlight %></h2>
+                                <p><%= banner[1].description %></p>
+                                <a href="/shop" class="primary-btn">Shop now <span class="arrow_right"></span></a>
                                 <div class="hero__social">
                                     <a href="#"><i class="fa fa-facebook"></i></a>
                                     <a href="#"><i class="fa fa-twitter"></i></a>
@@ -181,6 +178,29 @@
                     </div>
                 </div>
             </div>
+            <% } %>
+            <% for(let i=2 ; i < 3; i++ ) { %>
+                <div class="hero__items set-bg" data-setbg="<%= banner[2].images[0].url %>">
+                <div class="container">
+                        <div class="row">
+                            <div class="col-xl-5 col-lg-7 col-md-8">
+                                <div class="hero__text">
+                                    <h6><%=banner[2].highlight %></h6>
+                                    <h2><%=banner[2].highlight %></h2>
+                                    <p><%= banner[2].description %></p>
+                                    <a href="/shop" class="primary-btn">Shop now <span class="arrow_right"></span></a>
+                                    <div class="hero__social">
+                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                                        <a href="#"><i class="fa fa-instagram"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
         </div>
     </section>
     <!-- Hero Section End -->
@@ -195,7 +215,7 @@
                             <img src="img/banner/banner-1.jpg" alt="">
                         </div>
                         <div class="banner__item__text">
-                            <h2>Clothing Collections 2030</h2>
+                            <h2><%=banner[2].highlight %></h2>
                             <a href="#">Shop now</a>
                         </div>
                     </div>
@@ -206,7 +226,7 @@
                             <img src="img/banner/banner-2.jpg" alt="">
                         </div>
                         <div class="banner__item__text">
-                            <h2>Accessories</h2>
+                            <h2><</h2>
                             <a href="#">Shop now</a>
                         </div>
                     </div>
@@ -234,15 +254,16 @@
                 <div class="col-lg-12">
                     <ul class="filter__controls">
                         <li class="active" data-filter="*">Best Sellers</li>
-                        <li data-filter=".new-arrivals">New Arrivals</li>
-                        <li data-filter=".hot-sales">Hot Sales</li>
+                        <!-- <li data-filter=".new-arrivals">New Arrivals</li> -->
+                        <!-- <li data-filter=".hot-sales">Hot Sales</li> -->
                     </ul>
                 </div>
             </div>
             <div class="row product__filter">
+                <% j=1; for(datas of newProduct){%>
                 <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
                     <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
+                        <div class="product__item__pic set-bg" data-setbg="<%= datas.image[0].url%>">
                             <span class="label">New</span>
                             <ul class="product__hover">
                                 <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
@@ -253,13 +274,13 @@
                         <div class="product__item__text">
                             <h6>Piqué Biker Jacket</h6>
                             <a href="#" class="add-cart">+ Add To Cart</a>
-                            <div class="rating">
+                            <!-- <div class="rating">
                                 <i class="fa fa-star-o"></i>
                                 <i class="fa fa-star-o"></i>
                                 <i class="fa fa-star-o"></i>
                                 <i class="fa fa-star-o"></i>
                                 <i class="fa fa-star-o"></i>
-                            </div>
+                            </div> -->
                             <h5>$67.24</h5>
                             <div class="product__color__select">
                                 <label for="pc-1">
@@ -275,7 +296,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix hot-sales">
+                <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix hot-sales">
                     <div class="product__item">
                         <div class="product__item__pic set-bg" data-setbg="img/product/product-2.jpg">
                             <ul class="product__hover">
@@ -512,16 +533,17 @@
                                     <input type="radio" id="pc-24">
                                 </label>
                             </div>
-                        </div>
-                    </div>
-                </div>
+                        </div> -->
+                    <!-- </div> -->
+                <!-- </div> -->
+                <%}%>
             </div>
         </div>
     </section>
     <!-- Product Section End -->
 
     <!-- Categories Section Begin -->
-    <section class="categories spad">
+    <!-- <section class="categories spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3">
@@ -565,7 +587,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- Categories Section End -->
 
     <!-- Instagram Section Begin -->
@@ -600,7 +622,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="section-title">
+                    <!-- <div class="section-title">
                         <span>Latest News</span>
                         <h2>Fashion New Trends</h2>
                     </div>
@@ -635,7 +657,7 @@
                             <h5>The Health Benefits Of Sunglasses</h5>
                             <a href="#">Read More</a>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

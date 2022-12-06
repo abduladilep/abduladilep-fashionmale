@@ -71,17 +71,12 @@
                     <div class="col-lg-6 col-md-5">
                         <div class="header__top__right">
                             <div class="header__top__links">
-                                <a href="#">Sign in</a>
+
+                                <a href="/Logout">Logout</a>
+
                                 <a href="#">FAQs</a>
                             </div>
-                            <div class="header__top__hover">
-                                <span>Usd <i class="arrow_carrot-down"></i></span>
-                                <ul>
-                                    <li>USD</li>
-                                    <li>EUR</li>
-                                    <li>USD</li>
-                                </ul>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -108,7 +103,7 @@
                                     <li><a href="/wishlist/wishlist">wishlist</a></li>
                                 </ul>
                             </li>
-                            <li><a href="/blog">Blog</a></li>
+                            <li><a href="/myaccount">Account</a></li>
                             <li><a href="/contact">Contacts</a></li>
                         </ul>
                     </nav>
@@ -117,8 +112,7 @@
                     <div class="header__nav__option">
                         <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
                         <a href="/wishlist/wishlist"><img src="img/icon/heart.png" alt=""></a>
-                        <a href="/Cart/cart"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
-                        <div class="price">$0.00</div>
+                        <a href="/Cart/cart"><img src="img/icon/cart.png" alt=""> </a>
                     </div>
                 </div>
             </div>
@@ -135,8 +129,8 @@
                     <div class="breadcrumb__text">
                         <h4>Shopping Cart</h4>
                         <div class="breadcrumb__links">
-                            <a href="./index.html">Home</a>
-                            <a href="./shop.html">Shop</a>
+                            <a href="/">Home</a>
+                            <a href="/shop">Shop</a>
                             <span>Shopping Cart</span>
                         </div>
                     </div>
@@ -150,23 +144,25 @@
     <section class="shopping-cart spad">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg">
                     <div class="shopping__cart__table">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Product</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
+                        <% if (cartList.length>0){ %>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
 
 
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
 
-                                    <% if (cartList.length>0){ %>
+
+
                                         <% cartList.forEach((p)=>{%>
                                             <% p.product.forEach((p2)=>{%>
 
@@ -222,19 +218,15 @@
                                                     <td type="button" class="cart__close" data-bs-toggle="modal"
                                                         data-bs-target="#exampleModal<%=p.item %>"><i
                                                             class="fa fa-close"></i>
-                                                        <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal<%=p.item %>"> -->
-                                                        <!-- <i class="material-icons">delete</i> -->
-                                                        </button>
                                                     </td>
 
-                                </tr>
-                                <%})%>
+                                    </tr>
                                     <%})%>
+                                        <%})%>
 
-                                        <%}%>
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
                     </div>
 
                     <div class="row">
@@ -251,30 +243,45 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="cart__discount">
+                    <!--// <div class="cart__discount">
                         <h6>Discount codes</h6>
-                        <form action="#">
-                            <input type="text" placeholder="Coupon code">
-                            <button type="submit">Apply</button>
-                        </form>
-                    </div>
+
+
+                        <input type="text" placeholder="Coupon code" id="usercode" name="usercode">
+                        <button class="btn btn-primart" type="button" id="button" onclick="coupen()">Apply</button>
+
+                    </div>// -->
                     <div class="cart__total">
                         <h6>Cart total</h6>
                         <ul>
                             <li>Subtotal <span id="subtotal">
                                     <%= subtotal %>
-                                </span></li>
-                            <li>Shipping <span id="shipping">
+                            </li>
+                            <!-- <li>Discount<span id="discount">0</span> -->
+
+                            </li>
+                            <li>Shipping <span id="subtotal">
                                     <%= shipping %>
                                 </span></li>
                             <li>Grand Total <span id="grandtotal">
                                     <%= grandtotal %>
+
                                 </span></li>
                         </ul>
-                        <a href="#" class="primary-btn">Proceed to checkout</a>
+                        <a href="/checkout/checkout/<%= cartList[0]._id %>" class="primary-btn">Proceed to checkout</a>
                     </div>
+                    <%} else{%>
+                        <div class=" text-center">
+
+                            <h2>
+                                Your cart is currently empty</h2><br>
+                            <p> Before proceed to checkout you must add some products to your shopping cart. You will
+                                find a lot of interesting products on our "Shop" page.</p>
+                            <%}%>
+                        </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
     <!-- Shopping Cart Section End -->
@@ -384,8 +391,6 @@
             <%})%>
                 <%})%>
 
-
-
                     <!-- Search End -->
 
                     <!-- Js Plugins -->
@@ -398,13 +403,14 @@
                             let grandtotal = document.getElementById('grandtotal')
                             let shipping = document.getElementById('shipping')
 
+
                             console.log("subtotalll", subtotal.innerHTML)
-                            fetch('/cart/itemInc/' + id, {
+                            fetch('/cart/itemInc', {
                                 method: 'post',
                                 headers: {
                                     'Content-type': 'application/json',
                                 },
-                                body: JSON.stringify({ hai: "ok" })
+                                body: JSON.stringify({ id })
 
                             })
                                 .then(res => res.json())
@@ -415,6 +421,7 @@
                                     total.innerHTML = String(totals);
 
                                     document.getElementById('subtotal').innerHTML = Number(subtotal.innerHTML) + Number(price)
+
                                     if (subtotal.innerHTML > 15000) {
                                         shipping.innerHTML = "0"
                                     } else {
@@ -440,15 +447,17 @@
                             if (count > 1) {
 
 
-                                fetch('/cart/itemDec/' + id, {
+                                fetch('/cart/itemDec', {
                                     method: 'post',
                                     headers: {
                                         'Content-type': 'application/json',
                                     },
-                                    body: JSON.stringify({ hai: "jhj" })
+                                    body: JSON.stringify({ id })
 
                                 })
                                     .then(res => res.json())
+
+
                                     .then(data => {
 
 
@@ -458,6 +467,10 @@
 
                                         document.getElementById('subtotal').innerHTML = parseInt(document.getElementById('subtotal').innerHTML) - parseInt(document.getElementById('product_price' + id).innerHTML)
 
+                                        if (parseInt(document.getElementById('subtotal').innerHTML) < 15000) {
+                                            document.getElementById('discount').innerHTML = 0
+
+                                        }
                                         if (subtotal.innerHTML > 15000) {
                                             shipping.innerHTML = "0"
                                         } else {
@@ -472,12 +485,13 @@
 
                         function itemDel(id) {
 
-                            fetch('/cart/itemDel/' + id, {
+                            fetch('/cart/itemDel', {
                                 method: 'put',
                                 headers: {
-                                    'Content-type': 'application/json',
+
+                                    'Content-Type': 'application/json',
                                 },
-                                body: JSON.stringify({ hai: "jhj" })
+                                body: JSON.stringify({ id })
                             })
                                 .then(res => res.json())
                                 .then(data => {
@@ -488,6 +502,12 @@
 
                                 })
                         }
+
+
+                     
+
+
+
 
                     </script>
 

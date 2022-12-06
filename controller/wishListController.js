@@ -12,52 +12,43 @@ const Wishlist = require('../model/wishListScheema')
 
 const addToWishlist = async (req, res) => {
 
-    try {
-        if (req.session.useremail) {
-            const prodId = req.params.id
-            const ProductId = new mongoose.Types.ObjectId(prodId)
-            Id = user[0]._id;
-            const userId = req.session.userId
-            const detail = await User.findById({ _id: userId })
-            if (detail.state == false) {
+    const userId = req.session.userId
+    const productId = req.body.id
 
-                const userExist = await Wishlist.findOne({ userId })
-                if (userExist) {
-                    const productExist = await Wishlist.findOne({
-                        $and: [{ userId }, {
-                            wishlistItems: {
-                                $elemMatch: {
-                                    ProductId
-                                }
-                            }
-                        }]
-                    })
-                    if (productExist) {
-                        res.send({ success: false })
-                    } else {
-                        await Wishlist.updateOne({ userId }, { $push: { wishlistItems: { ProductId } } })
-                        res.send({ success: true })
+    try {
+
+        const userExist = await Wishlist.findOne({ userId: userId })
+
+        console.log("userexist", userExist);
+        if (userExist) {
+            const productExist = await Wishlist.findOne({
+                $and: [{ userId: userId }, {
+                    wishlistItems: {
+                        $elemMatch: {
+                            ProductId: productId
+                        }
                     }
-                } else {
-                    const wishlist = new Wishlist({
-                        userId, wishlistItems: [{ ProductId: ProductId }]
-                    })
-                    await wishlist.save()
-                        .then(() => {
-                            res.send({ success: true })
-                        })
-                        .catch((err) => {
-                            // res.render('error', { err })
-                        })
-                }
+                }]
+            })
+            if (productExist) {
+                res.send({ success: false })
             } else {
-                req.flash('error', 'You are unable to access the product')
-                res.redirect('back')
+                await Wishlist.updateOne({ userId: userId }, { $push: { wishlistItems: { ProductId: productId } } })
+                res.send({ success: true })
             }
         } else {
-            req.flash('error', 'You are not logged in')
-            res.redirect('back')
+            const wishlist = new Wishlist({
+                userId: userId, wishlistItems: [{ ProductId: productId }]
+            })
+            await wishlist.save()
+                .then(() => {
+                    res.send({ success: true })
+                })
+                .catch((err) => {
+                    // res.render('error', { err })
+                })
         }
+
     } catch (err) {
         res.render('error', { err })
     }
@@ -80,22 +71,17 @@ const userWishlist = async (req, res) => {
 }
 
 
-
 const deleteWishlist = async (req, res) => {
-
+    console.log("sdfghjk");
 
     try {
-        const prodId = req.params.id
-        const ProductId = new mongoose.Types.ObjectId(prodId)
+
         const userId = req.session.userId
-        const detail = await User.findById({ _id: userId })
-        if (detail.state == false) {
-            await Wishlist.updateOne({ userId }, { $pull: { wishlistItems: { "ProductId": ProductId } } })
-            res.send({ success: true })
-        } else {
-            req.flash('error', 'You are unable to access the product')
-            res.send({ success: false })
-        }
+        const productId = req.params.id
+
+        await Wishlist.updateOne({ userId: userId }, { $pull: { wishlistItems: { "ProductId": productId } } })
+        res.send({ success: true })
+
     } catch (err) {
         // res.render('error', { err })
     }

@@ -13,7 +13,7 @@ const cartScheema = new Schema({
 
         ProductId: {
             type:mongoose.Schema.Types.ObjectId,
-            ref:"products"
+            // ref:"products"
         },
         
 
@@ -28,11 +28,11 @@ const cartScheema = new Schema({
 
     }],
 
-    // bill: {
-    //     type: Number,
-    //     required: true,
-    //     default: 0
-    // }
+    couponCode: {
+        type: String,
+       
+    },
+   
 })
 
 

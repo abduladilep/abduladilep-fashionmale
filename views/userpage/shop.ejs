@@ -11,20 +11,20 @@
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
-    rel="stylesheet">
+        rel="stylesheet">
 
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
 </head>
 
 <body>
@@ -41,14 +41,7 @@
                 <a href="#">Sign in</a>
                 <a href="#">FAQs</a>
             </div>
-            <div class="offcanvas__top__hover">
-                <span>Usd <i class="arrow_carrot-down"></i></span>
-                <ul>
-                    <li>USD</li>
-                    <li>EUR</li>
-                    <li>USD</li>
-                </ul>
-            </div>
+
         </div>
         <div class="offcanvas__nav__option">
             <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
@@ -75,22 +68,19 @@
                     </div>
                     <div class="col-lg-6 col-md-5">
                         <div class="header__top__right">
+
                             <div class="header__top__links">
-                                <a href="#">Sign in</a>
-                                <a href="#">FAQs</a>
-                            </div>
-                            <div class="header__top__hover">
-                                <span>Usd <i class="arrow_carrot-down"></i></span>
-                                <ul>
-                                    <li>USD</li>
-                                    <li>EUR</li>
-                                    <li>USD</li>
-                                </ul>
+
+                                <a href="/Logout">Logout</a>
+
+
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
+        </div>
         </div>
         <div class="container">
             <div class="row">
@@ -107,13 +97,13 @@
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
                                     <li><a href="/about">About Us</a></li>
-                                    <li><a href="/shop-details">Shop Details</a></li>
+                                    <li><a href="">Shop Details</a></li>
                                     <li><a href="/Cart/cart">Shopping Cart</a></li>
                                     <li><a href="/checkout">Check Out</a></li>
                                     <li><a href="/wishlist/wishlist">wishlist</a></li>
                                 </ul>
                             </li>
-                            <li><a href="/blog">Blog</a></li>
+                            <li><a href="/myaccount">Account</a></li>
                             <li><a href="/contact">Contacts</a></li>
                         </ul>
                     </nav>
@@ -122,8 +112,8 @@
                     <div class="header__nav__option">
                         <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
                         <a href="/wishlist/wishlist"><img src="img/icon/heart.png" alt=""></a>
-                        <a href="/Cart/cart"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
-                        <div class="price">$0.00</div>
+                        <a href="/Cart/cart"><img src="img/icon/cart.png" alt=""> <span></span></a>
+
                     </div>
                 </div>
             </div>
@@ -140,7 +130,7 @@
                     <div class="breadcrumb__text">
                         <h4>Shop</h4>
                         <div class="breadcrumb__links">
-                            <a href="./index.html">Home</a>
+                            <a href="/">Home</a>
                             <span>Shop</span>
                         </div>
                     </div>
@@ -173,11 +163,16 @@
 
                                             <div class="shop__sidebar__categories">
                                                 <% let n=1; for(datas of newCategory) { %>
-                                                <div class="nice-scroll"></div>
-                                                   <li> <%= datas.category %></li>
-                                                    
-                                                   
-                                                <% n++ }%>
+                                                    <div class="nice-scroll"></div>
+                                                    <li class="main-nav-list"><a style="cursor:pointer;"
+                                                            onclick="selectCategory('<%= datas._id%>')"><span
+                                                                class="Inr Inr-arrow-right"></span>
+                                                            <%= datas.category %>
+                                                        </a>
+                                                    </li>
+
+
+                                                    <% n++ }%>
                                             </div>
                                         </div>
                                     </div>
@@ -188,18 +183,23 @@
                                     </div>
                                     <div id="collapseTwo" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
-                                            <div class="shop__sidebar__brand">
-                                                <ul>
-                                                    <li><a href="#">Louis Vuitton</a></li>
-                                                    <li><a href="#">Chanel</a></li>
-                                                    <li><a href="#">Hermes</a></li>
-                                                    <li><a href="#">Gucci</a></li>
-                                                </ul>
-                                            </div>
+                                            <!-- <div class="shop__sidebar__brand">
+
+                                                <% let s=1; for(datas of newBrand) { %>
+                                                    <div class="nice-scroll"></div>
+                                                    <li class="main-nav-list">
+                                                        <%= datas.newBrand %>
+                                                            </a>
+                                                    </li>
+
+
+                                                    <% s++ }%>
+
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card">
+                                <!-- <div class="card">
                                     <div class="card-heading">
                                         <a data-toggle="collapse" data-target="#collapseThree">Filter Price</a>
                                     </div>
@@ -217,8 +217,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="card">
+                                </div> -->
+                                <!-- <div class="card">
                                     <div class="card-heading">
                                         <a data-toggle="collapse" data-target="#collapseFour">Size</a>
                                     </div>
@@ -252,8 +252,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="card">
+                                </div> -->
+                                <!-- <div class="card">
                                     <div class="card-heading">
                                         <a data-toggle="collapse" data-target="#collapseFive">Colors</a>
                                     </div>
@@ -290,8 +290,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="card">
+                                </div> -->
+                                <!-- <div class="card">
                                     <div class="card-heading">
                                         <a data-toggle="collapse" data-target="#collapseSix">Tags</a>
                                     </div>
@@ -308,7 +308,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -318,48 +318,59 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="shop__product__option__left">
-                                    <p>Showing 1–12 of 126 results</p>
+                                    <p>Showing 112 of 126 results</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="shop__product__option__right">
-                                    <p>Sort by Price:</p>
-                                    <select>
+                                    <!-- <p>Sort by Price:</p> -->
+                                    <!-- <select>
                                         <option value="">Low To High</option>
                                         <option value="">$0 - $55</option>
                                         <option value="">$55 - $100</option>
-                                    </select>
+                                    </select> -->
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <% j=1; for(datas of newProduct){%>
-                            <div class="product__item">
-                                <div class="row product__item__pic set-bg  " data-setbg="<%= datas.image[0].url%>">
+                    <div class="row" id="product">
+
+                        <% j=1; for(datas of newProduct){%>
+                            <div class="product__item col-md-3 mr-5">
+                                <div class="row product__item__pic set-bg " data-setbg="<%= datas.image[0].url%>">
                                     <ul class="product__hover">
-                                        <li><a href=""><img src="img/icon/heart.png"  onclick="wishlist('<%= datas._id%>')"  alt=""></a></li>
+                                        <li><a href=""><img src="img/icon/heart.png"
+                                                    onclick="wishlist('<%= datas._id%>')" alt=""></a></li>
                                         <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a>
                                         </li>
                                         <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
+
                                     </ul>
                                 </div>
 
-                                
+
                                 <div class="product__item__text">
-                                    <h6><%=datas.product_name%></h6>
-                                    <!-- <button data-toggle="modal" data-target="#exampleModal<%=datas._id%>" 
-										class="btn btn-primary"><i class="fas fa-shopping-cart text-primary "></i>Add To Cart</button> -->
-                                    <a href="#" class="add-cart"  data-toggle="modal" data-target="#exampleModal<%=datas._id%>" > Add To Cart</a>
+
+                                    <h6>
+                                        <%=datas.product_name%>
+                                    </h6>
+
+
+                                    <a href="#" class="add-cart" data-toggle="modal"
+                                        data-target="#exampleModal<%=datas._id%>"> Add To Cart</a>
+
+                                    <div><a href="/product/productDetails/<%= datas._id %>" class="text-primary"
+                                            style="margin-left:100px ;"> Viewdetails</a></div>
+
                                     <div class="rating">
+                                        <!-- <i class="fa fa-star-o"></i>
                                         <i class="fa fa-star-o"></i>
                                         <i class="fa fa-star-o"></i>
                                         <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i> -->
                                     </div>
-                                    <h5>₹<%=datas.product_price%></h5>
+                                    <h5>₹<%=datas.product_price%>
+                                    </h5>
                                     <div class="product__color__select">
                                         <label for="pc-4">
                                             <input type="radio" id="pc-4">
@@ -374,9 +385,9 @@
                                 </div>
                             </div>
                             <%}%>
-                        </div>
-                    </div>    
-                </div>   
+                                <!-- </div> -->
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -439,7 +450,7 @@
                                 document.write(new Date().getFullYear());
                             </script>2020
                             All rights reserved | This template is made with <i class="fa fa-heart-o"
-                            aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                                aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                         </p>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </div>
@@ -460,90 +471,158 @@
     </div>
     <!-- Search End -->
 
-    
+
     <% for (let datas of newProduct) { %>
-   
-            <div class="modal fade" id="exampleModal<%= datas._id%>" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Remove Item</h5>
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            Do you want remove this Item from Cart ..?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-secondary" onclick="cartList('<%= datas._id %>')"
-                                data-dismiss="modal">
-                                Add To Cart</button>
-                        </div>
+
+        <div class="modal fade" id="exampleModal<%= datas._id%>" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Remove Item</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Do you want remove this Item from Cart ..?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" onclick="cartList('<%= datas._id %>')"
+                            data-dismiss="modal">
+                            Add To Cart</button>
                     </div>
                 </div>
             </div>
-
-            
-                <% } %>
-
-    <script>
-        function cartList(id) {
-            console.log("produuuct",id);
-                fetch('/cart/addToCart/' + id, {
-                    method: 'post',
-                    headers: {
-                        'Content-type': 'application/json',
-                        body: JSON.stringify({id})
-                    }
-                })
-                    .then(res => res.json())
-            }
-    </script>
+        </div>
 
 
+        <% } %>
 
+            <script>
+                function cartList(id) {
 
-<script>
-    function wishlist(id) {
-        console.log(id);
-        fetch('/wishlist/addToWishlist/' + id, {
-            method: 'post',
-            headers: {
-                'Content-type': 'application/json',
-            },
-            body: JSON.stringify({ hai: "jhj" })
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success == true) {
-                    document.getElementById('message').innerHTML = "<div class='text-success'> Item added to your Wishlist successfully...</div>"
-                } else {
-                    document.getElementById('message').innerHTML = "<div class='text-danger'>Item already exist in your Wishlist !!!</div>"
+                    fetch('/cart/addToCart', {
+                        method: 'post',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ id })
+
+                    })
+                        .then(res => res.json())
+
                 }
-            })
-    }
-    </script>
-<!-- 
+            </script>
+
+
+
+
+            <script>
+                function wishlist(id) {
+
+                    fetch('/wishlist/addToWishlist/', {
+
+                        method: 'post',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ id })
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success == true) {
+
+                            } else {
+
+                            }
+                        })
+                }
+            </script>
+
+            <script>
+                function selectCategory(catagoryId) {
+                    const datas = document.getElementById("product")
+                    console.log("kooooui", datas);
+                    let allProducts = '';
+                    fetch("/catagorySort", {
+                        method: "post",
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ catagoryId })
+                    }).then(res => res.json()).then(data => {
+                        for (products of data.product) {
+                            allProducts += `
+                            <div class="product__item" >
+
+                            
+                                 
+                                <div class="row product__item__pic "style="background-image:url('${products.image[0].url}');background-size: 240px;">
+
+                                    <ul class="product__hover">
+                                        <li><a href=""><img src="img/icon/heart.png"  onclick="wishlist('${products._id}')"  alt=""></a></li>
+                                        <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a>
+                                        </li>
+                                        <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
+                                    </ul>
+                                </div>
+
+                                
+                                <div class="product__item__text">
+                                    <h6>${products.product_name}</h6> 
+                                    
+                                    <a href="#" class="add-cart"  data-toggle="modal" data-target="#exampleModal${products._id}" > Add To Cart</a>
+                                    <div class="rating">
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                    <h5>₹${products.product_price}</h5>
+                                    <div class="product__color__select">
+                                        <label for="pc-4">
+                                            <input type="radio" id="pc-4">
+                                        </label>
+                                        <label class="active black" for="pc-5">
+                                            <input type="radio" id="pc-5">
+                                        </label>
+                                        <label class="grey" for="pc-6">
+                                            <input type="radio" id="pc-6">
+                                        </label>
+                                    </div>
+                                </div>
+                           
+                        </div>`
+                            datas.innerHTML = allProducts
+                            console.log(allProducts);
+                        }
+                    })
+                }
+            </script>
+
+
+
+
+            <!-- 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 					integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 					crossorigin="anonymous"></script> -->
 
+            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-    <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/jquery.nicescroll.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/jquery.countdown.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/mixitup.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
+            <!-- Js Plugins -->
+            <script src="js/jquery-3.3.1.min.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+            <script src="js/jquery.nice-select.min.js"></script>
+            <script src="js/jquery.nicescroll.min.js"></script>
+            <script src="js/jquery.magnific-popup.min.js"></script>
+            <script src="js/jquery.countdown.min.js"></script>
+            <script src="js/jquery.slicknav.js"></script>
+            <script src="js/mixitup.min.js"></script>
+            <script src="js/owl.carousel.min.js"></script>
+            <script src="js/main.js"></script>
 </body>
 
 </html>

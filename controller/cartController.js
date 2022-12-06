@@ -3,83 +3,72 @@ const CartItem = require("../model/cartScheema");
 const User = require("../model/userScheema")
 const session = require('express-session');
 const { default: mongoose } = require('mongoose');
+const { product } = require('./productController');
 
 
 
 
 const addToCart = async (req, res) => {
-    console.log("hhh");
+    console.log("hgsad");
+    const userId = req.session.userId
+    const productId = req.body.id
+
+    console.log("pprooooo", productId)
+
     try {
-        if (req.session.useremail) {
-            const prodId = req.params.id
 
-            const productId = new mongoose.Types.ObjectId(prodId)
+        if (req.session.userId) {
 
-            const userId = req.session.userId
-            
+            const userExist = await CartItem.findOne({ user: userId })
+            console.log("userexist", userExist);
 
-            const item = await Product.findOne({ _id: productId })
+            if (userExist) {
+                const productExist = await CartItem.findOne({
+                    $and: [{ user: userId }, {
+                        cartItem: {
+                            $elemMatch: {
+                                ProductId: productId
+                            }
+                        }
+                    }]
+                })
+                if (productExist) {
 
-            const price = item.product_price
-
-            const detail = await User.findById({ _id: userId })
-
-
-            if (detail.state == false) {
-
-                const userExist = await CartItem.findOne({ userId })
-
-                if (userExist) {
-                    const productExist = await CartItem.findOne({
-                        $and: [{ userId }, {
+                    await CartItem.findOneAndUpdate({
+                        $and: [{ user: userId }, {
                             cartItem: {
                                 $elemMatch: {
                                     ProductId: productId
                                 }
                             }
                         }]
-                    })
-                    console.log("product exisst", productExist);
+                    }, { $inc: { "cartItem.$.quantity": 1 } })
 
-                    if (productExist) {
 
-                        await CartItem.findOneAndUpdate({ $and: [{ userId }, { "cartItem.ProductId": productId }] }, { $inc: { "cartItem.$.quantity": 1 } })
-                        console.log('exist');
-
-                        res.send({ success: true })
-                    } else {
-                        await CartItem.updateOne({ userId }, { $push: { cartItem: { ProductId: productId, quantity: 1, price } } })
-
-                        res.send({ success: true })
-                    }
-                } else {
-
-                    const cart = new CartItem({
-                        user: userId, cartItem: [{ ProductId: productId, quantity: 1, price }]
-                    })
-                    await cart.save()
-
-                        .then(() => {
-                            res.send({ success: true })
-                        })
-                        .catch((err) => {
-                            res.render('error',{err})
-                        })
+                    console.log("Old product");
                 }
-                console.log(cart);
+                else {
+                    await CartItem.updateOne({ user: userId }, { $push: { cartItem: { ProductId: productId, quantity: 1 } } })
+
+                    console.log("newwwww product");
+                }
+
             } else {
-                req.flash('error', 'You are unable to access the product')
-                res.redirect('back')
+                console.log("New User");
+                const cart = new CartItem({
+                    user: userId, cartItem: [{ ProductId: productId, quantity: 1 }]
+                })
+
+                await cart.save()
+
+
             }
-        } else {
-            req.flash('error', 'You are not logged in')
-            res.redirect('back')
+
         }
     } catch (err) {
-        // res.render('error',{err})
+        res.render('error', { err })
     }
 }
-
 
 const userCart = async (req, res) => {
 
@@ -115,55 +104,52 @@ const userCart = async (req, res) => {
 
         }
         const grandtotal = subtotal + shipping
+        
+        console.log("lll",grandtotal);
 
         res.render('userpage/shopping-cart', { cartList, subtotal, total, shipping, grandtotal })
 
+
     } catch (err) {
 
-        // res.render('error', { err })
+        res.render('error', { err })
     }
 }
 
 
 const itemInc = async (req, res) => {
+
+    const userId = req.session.userId
+    const productId = req.body.id
+    console.log(userId);
     try {
-        const prodId = req.params
-        const productId = mongoose.Types.ObjectId(prodId)
-        const userId = req.session.userId
-        const detail = await User.findById({ _id: userId })
 
-        if (detail.state == false) {
-            const userExist = await CartItem.findOne({ userId })
-            if (userExist) {
 
-                const productExist = await CartItem.findOne({
-                    $and: [{ userId }, {
-                        cartItem: {
-                            $elemMatch: {
-                                ProductId: productId
-                            }
+        const userExist = await CartItem.findOne({ user: userId })
+        console.log("userexist", userExist);
+
+
+
+        if (userExist) {
+            const productExist = await CartItem.findOne({
+                $and: [{ user: userId }, {
+                    cartItem: {
+                        $elemMatch: {
+                            ProductId: productId
                         }
-                    }]
-                })
+                    }
+                }]
+            })
+            if (productExist) {
+
+                await CartItem.findOneAndUpdate({ $and: [{ user: userId }, { cartItem: { $elemMatch: { ProductId: productId } } }] }, { $inc: { "cartItem.$.quantity": 1 } })
 
 
-                if (productExist) {
-                    
-
-                    await CartItem.findOneAndUpdate({ $and: [{ userId }, { "cartItem.ProductId": productId }] }, { $inc: { "cartItem.$.quantity": 1 } })
-                    let quantity = 0
-                    req.flash('success', 'Item added to cart successfully')
-                    res.send({ success: true })
-                } else {
-                    req.flash('error', 'Unable to add item!!!')
-                    res.redirect('back')
-                }
-            } else {
-                req.flash('error', 'You are not logged in')
             }
-        } else {
-            req.flash('error', 'You are unable to access the product')
-            res.redirect('back')
+
+            req.flash('success', 'Item added to cart successfully')
+            res.send({ success: true })
+
         }
 
     } catch (err) {
@@ -171,46 +157,39 @@ const itemInc = async (req, res) => {
     }
 }
 
-
-
-
 const itemDec = async (req, res) => {
+    const userId = req.session.userId
+    const productId = req.body.id
+    console.log(userId);
     try {
-        const prodId = req.params.id
-        const productId = new mongoose.Types.ObjectId(prodId)
-        const userId = req.session.userId
-        const detail = await User.findById({ _id: userId })
 
-        if (detail.state == false) {
-            const userExist = await CartItem.findOne({ userId })
 
-            if (userExist) {
-                const productExist = await CartItem.findOne({
-                    $and: [{ userId }, {
-                        cartItem: {
-                            $elemMatch: {
-                                ProductId: productId
-                            }
+        const userExist = await CartItem.findOne({ user: userId })
+
+        if (userExist) {
+            const productExist = await CartItem.findOne({
+                $and: [{ userId }, {
+                    cartItem: {
+                        $elemMatch: {
+                            ProductId: productId
                         }
-                    }]
-                })
+                    }
+                }]
+            })
 
 
-                if (productExist) {
-                    await CartItem.findOneAndUpdate({ $and: [{ userId }, { "cartItem.ProductId": productId }] }, { $inc: { "cartItem.$.quantity": -1 } })
-                    req.flash('success', 'Item removed from cart successfully')
-                    res.send({ success: true })
-                } else {
-                    req.flash('error', 'Unable to delete item!!!')
-                    res.redirect('back')
-                }
+            if (productExist) {
+                await CartItem.findOneAndUpdate({ $and: [{ user: userId }, { "cartItem.ProductId": productId }] }, { $inc: { "cartItem.$.quantity": -1 } })
+                req.flash('success', 'Item removed from cart successfully')
+                res.send({ success: true })
             } else {
-                req.flash('error', 'You are not logged in')
+                req.flash('error', 'Unable to delete item!!!')
+                res.redirect('back')
             }
         } else {
-            req.flash('error', 'You are unable to access the product')
-            res.redirect('back')
+            req.flash('error', 'You are not logged in')
         }
+
     } catch (err) {
         // res.render('error',{err})
     }
@@ -218,28 +197,23 @@ const itemDec = async (req, res) => {
 
 const itemDelete = async (req, res) => {
     try {
-        const prodId = req.params.id
-        const productId = new mongoose.Types.ObjectId(prodId)
+
         const userId = req.session.userId
-        console.log(userId);
-
-        const detail = await User.findById({ _id: userId })
+        const productId = req.body.id
 
 
-        if (detail.state == false) {
-            await CartItem.updateOne({ userId }, { $pull: { cartItem: { "ProductId": productId } } })
+
+        await CartItem.updateOne({ user: userId }, { $pull: { cartItem: { "ProductId": productId } } })
 
 
-            res.send({ success: true })
-        } else {
-            req.flash('error', 'You are unable to access the product')
-            res.redirect('back')
-        }
+        res.send({ success: true })
+
 
     } catch (err) {
         // res.render('error',{err})
     }
 }
+
 
 
 

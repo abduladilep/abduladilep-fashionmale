@@ -24,7 +24,12 @@ product_Router
 product_Router.put('/deleteProduct/:id', productController.deleteProduct)
 
 
+product_Router.get('/productDetails/:id', productController.viewProductDetails)
 
+
+product_Router.get("/editproduct/:id", productController.editproduct)
+
+product_Router.post("/editProduct/:id", upload.array('image'), productController.editProduct)
 
 
 

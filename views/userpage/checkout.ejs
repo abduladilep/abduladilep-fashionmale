@@ -11,17 +11,19 @@
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
-    rel="stylesheet">
+        rel="stylesheet">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
 </head>
 
 <body>
@@ -34,10 +36,14 @@
     <div class="offcanvas-menu-overlay"></div>
     <div class="offcanvas-menu-wrapper">
         <div class="offcanvas__option">
-            <div class="offcanvas__links">
-                <a href="#">Sign in</a>
-                <a href="#">FAQs</a>
-            </div>
+            <div class="header__top__links">
+                
+                    <a href="/Logout">Logout</a>
+                    
+                       
+                        
+                        <a href="#">FAQs</a>
+                    </div>
             <div class="offcanvas__top__hover">
                 <span>Usd <i class="arrow_carrot-down"></i></span>
                 <ul>
@@ -51,7 +57,7 @@
             <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
             <a href="#"><img src="img/icon/heart.png" alt=""></a>
             <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
-            <div class="price">$0.00</div>
+           
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__text">
@@ -99,18 +105,19 @@
                 <div class="col-lg-6 col-md-6">
                     <nav class="header__menu mobile-menu">
                         <ul>
-                            <li><a href="/">Home</a></li>
-                            <li class="active"><a href="/shop">Shop</a></li>
+                            <li class="active"><a href="/">Home</a></li>
+                            <li><a href="/shop">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
                                     <li><a href="/about">About Us</a></li>
-                                    <li><a href="/shop-details">Shop Details</a></li>
-                                    <li><a href="/shopping-cart">Shopping Cart</a></li>
-                                    <li><a href="/checkout">Check Out</a></li>
-                                    <li><a href="/blog-details">Blog Details</a></li>
+                                    <li><a href="//product/productDetails">Shop Details</a></li>
+                                    <li><a href="/Cart/cart">Shopping Cart</a></li>
+                                    <li><a href="/checkout/checkout">Check Out</a></li>
+                                    <li><a href="/wishlist/wishlist">wishlist</a></li>
                                 </ul>
+                                
                             </li>
-                            <li><a href="/blog">Blog</a></li>
+                            <li><a href="/myaccount">Account</a></li>
                             <li><a href="/contact">Contacts</a></li>
                         </ul>
                     </nav>
@@ -120,7 +127,7 @@
                         <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
                         <a href="#"><img src="img/icon/heart.png" alt=""></a>
                         <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
-                        
+
                     </div>
                 </div>
             </div>
@@ -152,126 +159,154 @@
     <section class="checkout spad">
         <div class="container">
             <div class="checkout__form">
-                <form action="#">
+                <form id="pay" method="post" >
+
+                    <input type="hidden" value="<%= cartList[0]._id %>" name="cartId">
+                    
                     <div class="row">
                         <div class="col-lg-8 col-md-6">
-                            <h6 class="coupon__code"><span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click
-                            here</a> to enter your code</h6>
+
+
+                            <div class="cart__discount">
+                                <h6>Discount codes</h6>
+        
+        
+                                <input type="text" placeholder="Coupon code" id="usercode" name="usercode">
+                                <button class="btn btn-primart" type="button" id="button" onclick="coupen()">Apply</button>
+        
+                            </div>
+                            <!-- <div class="btn btn-dark"><a href="/addAddress"> ADD NEW ADRESS </a></div> -->
+                            <h6 class="coupon__code"><span class="icon_tag_alt"></span> Add New Address? <a href="/addAddress">Click
+                                    here</a> add new address</h6>
                             <h6 class="checkout__title">Billing Details</h6>
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="checkout__input">
-                                        <p>Fist Name<span>*</span></p>
-                                        <input type="text">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="checkout__input">
-                                        <p>Last Name<span>*</span></p>
-                                        <input type="text">
-                                    </div>
-                                </div>
+
+                                <table class="table custom-table" style="background-color: #F3F2EE;">
+
+
+                                    <thead>
+                                        <tr>
+
+                                            <th></th>
+                                            <th>Address</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% let i=0; for(add of useraddres) { %>
+                                            <tr>
+                 
+
+                                                <th>
+                                                    <label class="control control--checkbox">
+                                                        <input type="radio" value=" <%= add.Firstname%><%=add.Lastname%>,<%=add.street%>,<%=add.houseNo%>,<%=add.district%>,<%=add.state%>,<%=add.pincode%>,<%=add.Email%>,<%=add.mobile%>" name="address"
+                                                            <%if(i===0) {%>
+                                                        checked<% } %>
+
+
+                                                            <div class="control_indicator"></div>
+                                                    </label>
+                                                </th>
+
+                                                <td>
+                                                    <h5 style="font-weight:bolder">
+                                                        <%= add.Firstname + "  " +add.Lastname%>
+
+                                                    </h5>
+                                                    <p>
+                                                        <%= add.street +" , "+add.houseNo +", "+add.district+","+add.state +" ,"+add.pincode%>
+
+                                                    </p>
+                                                    <p>
+                                                        <%=add.Email +", "+add.mobile %>
+                                                    </p>
+                                                         
+                                                </td>
+                                                <td>    
+                                                  
+                                                </td>
+                                            </tr>
+                                            <%i++}%>
+                                    </tbody>
+                                </table>
+
+
                             </div>
-                            <div class="checkout__input">
-                                <p>Country<span>*</span></p>
-                                <input type="text">
-                            </div>
-                            <div class="checkout__input">
-                                <p>Address<span>*</span></p>
-                                <input type="text" placeholder="Street Address" class="checkout__input__add">
-                                <input type="text" placeholder="Apartment, suite, unite ect (optinal)">
-                            </div>
-                            <div class="checkout__input">
-                                <p>Town/City<span>*</span></p>
-                                <input type="text">
-                            </div>
-                            <div class="checkout__input">
-                                <p>Country/State<span>*</span></p>
-                                <input type="text">
-                            </div>
-                            <div class="checkout__input">
-                                <p>Postcode / ZIP<span>*</span></p>
-                                <input type="text">
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="checkout__input">
-                                        <p>Phone<span>*</span></p>
-                                        <input type="text">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="checkout__input">
-                                        <p>Email<span>*</span></p>
-                                        <input type="text">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="checkout__input__checkbox">
-                                <label for="acc">
-                                    Create an account?
-                                    <input type="checkbox" id="acc">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <p>Create an account by entering the information below. If you are a returning customer
-                                please login at the top of the page</p>
-                            </div>
-                            <div class="checkout__input">
-                                <p>Account Password<span>*</span></p>
-                                <input type="text">
-                            </div>
-                            <div class="checkout__input__checkbox">
-                                <label for="diff-acc">
-                                    Note about your order, e.g, special noe for delivery
-                                    <input type="checkbox" id="diff-acc">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="checkout__input">
-                                <p>Order notes<span>*</span></p>
-                                <input type="text"
-                                placeholder="Notes about your order, e.g. special notes for delivery.">
-                            </div>
+
+
                         </div>
+                        
                         <div class="col-lg-4 col-md-6">
                             <div class="checkout__order">
                                 <h4 class="order__title">Your order</h4>
                                 <div class="checkout__order__products">Product <span>Total</span></div>
-                                <ul class="checkout__total__products">
-                                    <li>01. Vanilla salted caramel <span>$ 300.0</span></li>
-                                    <li>02. German chocolate <span>$ 170.0</span></li>
-                                    <li>03. Sweet autumn <span>$ 170.0</span></li>
-                                    <li>04. Cluten free mini dozen <span>$ 110.0</span></li>
-                                </ul>
-                                <ul class="checkout__total__all">
-                                    <li>Subtotal <span>$750.99</span></li>
-                                    <li>Total <span>$750.99</span></li>
-                                </ul>
-                                <div class="checkout__input__checkbox">
-                                    <label for="acc-or">
-                                        Create an account?
-                                        <input type="checkbox" id="acc-or">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod tempor incididunt
-                                ut labore et dolore magna aliqua.</p>
-                                <div class="checkout__input__checkbox">
-                                    <label for="payment">
-                                        Check Payment
-                                        <input type="checkbox" id="payment">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <div class="checkout__input__checkbox">
-                                    <label for="paypal">
-                                        Paypal
-                                        <input type="checkbox" id="paypal">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <button type="submit" class="site-btn">PLACE ORDER</button>
-                            </div>
+                                <% cartList.forEach((p)=>{%>
+                                    <% p.product.forEach((p2)=>{%>
+                                        <ul class="checkout__total__products">
+
+
+                                            <% const total=parseInt(p2.product_price)*parseInt(p.itemQuantity) %>
+                                                <li>
+                                                    <%=p2.product_name %> <span>
+                                                            <%= total %>
+                                                        </span>
+                                                </li>
+
+
+                                        </ul>
+                                        <% }) %>
+
+
+                                            <% }) %>
+
+                                                <ul class="checkout__total__all">
+                                                    <li>Subtotal <span id="subtotal">
+                                                            <%= subtotal %>
+                                                        </span></li>
+                                                    <li>shipping <span id="subtotal">
+                                                            <%= shipping %>
+                                                        </span></li>
+                                                  
+                                                        <li>Discount<span id="discount">0</span>
+                                                        
+                                                    </span></li>
+
+
+                                                    <li>Total <span id="grandtotal">
+                                                            <%= grandtotal %>
+                                                        </span></li>
+                                                </ul>
+
+
+                                                <div class="checkout__input__checkbox">
+                                                    <label for="acc-or">
+                                                        Create an account?
+                                                        <input type="checkbox" id="acc-or">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </div>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod
+                                                    tempor
+                                                    incididunt
+                                                    ut labore et dolore magna aliqua.</p>
+                                                <div class="checkout__input__checkbox">
+                                                    <label for="payment">
+                                                        COD
+                                                        <input type="radio" id="payment"  value="COD" name="payment">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </div>
+                                                <div class="checkout__input__checkbox">
+                                                    <label for="paypal">
+                                                        online
+                                                        <input type="radio" id="paypal" value="Online" name="payment">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </div>
+
+                                                <button type="submit" id="order" class="site-btn">PLACE ORDER</button>
+                           
+                                            </div>
                         </div>
                     </div>
                 </form>
@@ -322,7 +357,7 @@
                             <p>Be the first to know about new arrivals, look books, sales & promos!</p>
                             <form action="#">
                                 <input type="text" placeholder="Your email">
-                                <button type="submit"><span class="icon_mail_alt"></span></button>
+                                <!-- <button type="submit"><span class="icon_mail_alt"></span></button> -->
                             </form>
                         </div>
                     </div>
@@ -337,7 +372,7 @@
                                 document.write(new Date().getFullYear());
                             </script>2020
                             All rights reserved | This template is made with <i class="fa fa-heart-o"
-                            aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                                aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                         </p>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </div>
@@ -357,6 +392,122 @@
         </div>
     </div>
     <!-- Search End -->
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        $("#pay").submit((e) => { 
+            console.log("ajnsj");
+            e.preventDefault()
+            $.ajax({
+                url: '/checkout/placeOrder',
+                method: 'post',
+                data: $("#pay").serialize(),
+                success: (response) => {
+                    alert(response)
+                    if (response.codSuccess) {
+                        location.href = '/checkout/orderSuccess'
+                    } else {
+                        razorpayPayment(response)
+                    }
+                }
+            })
+        })
+        function razorpayPayment(order) {
+            var options = {
+                "key": "rzp_test_DftcNjVgIfTLh3", // Enter the Key ID generated from the Dashboard
+                "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                "currency": "INR",
+                "name": "E-COMMERCE",
+                "description": "Test Transaction",
+                "image": "https://example.com/your_logo",
+                "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                "handler": function (response) {
+
+                    verifyPayment(response, order)
+                },
+                "prefill": {
+                    "name": "Gaurav Kumar",
+                    "email": "gaurav.kumar@example.com",
+                    "contact": "9999999999"
+                },
+                "notes": {
+                    "address": "Razorpay Corporate Office"
+                },
+                "theme": {
+                    "color": "#3399cc"
+                }
+            };
+            var rzp1 = new Razorpay(options)
+            rzp1.open();
+        }
+        function verifyPayment(payment, order) {
+            $.ajax({
+                url: '/checkout/verifyPay',
+                data: {
+                    payment,
+                    order
+                },
+                method: 'post',
+                success: (response) => {
+                    if (response.status) {
+                        location.href = '/checkout/orderSuccess'
+                    } else {
+                        alert("Payment failed")
+                    }
+                }
+            })
+        }
+    // </script>
+
+
+
+<script>
+
+
+function coupen() {
+
+    const usercode = document.getElementById('usercode').value
+    console.log("usercode", usercode);
+    let disc = document.getElementById('discount').innerHTML
+    
+    fetch('/admin/applyCoupen/' + usercode, {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+            
+            
+        },
+        body: JSON.stringify({ disc })
+        
+    })
+    .then(res => res.json())
+    .then(data => {
+        discount = data.success
+        console.log(discount,"discount");
+        ;
+        if (parseInt(document.getElementById('grandtotal').innerHTML) > 15000) {
+
+                if (parseInt(document.getElementById('discount').innerHTML) > 0) {
+                    console.log("disssssssssss");
+                    document.getElementById('button').disabled = true
+                    console.log("hfhfhghg");
+                } else {
+                    coupen = Math.round(document.getElementById('grandtotal').innerHTML * (discount.discountPercentage / 100))
+                    console.log("cpn", coupen);
+                    document.getElementById('discount').innerHTML = coupen
+                    document.getElementById('grandtotal').innerHTML = parseInt(document.getElementById('grandtotal').innerHTML) - parseInt(coupen)
+
+                    console.log("heyyyyy");
+                }
+            }
+            else if (parseInt(document.getElementById('grandtotal').innerHTML) < 15000) {
+                document.getElementById('discount').innerHTML = '0'
+            }
+        })
+}
+
+
+</script>
 
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>

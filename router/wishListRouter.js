@@ -12,7 +12,7 @@ const wishListController = require('../controller/wishListController')
 //     sessionCheckHomePage
 // } = require('../middleware/auth')
 
-wishList_Router.post('/addToWishlist/:id', wishListController.addToWishlist)
+wishList_Router.post('/addToWishlist', wishListController.addToWishlist)
 wishList_Router.get('/wishlist', wishListController.userWishlist)
 wishList_Router.delete('/deleteWishlistItem/:id', wishListController.deleteWishlist)
 

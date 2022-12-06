@@ -120,14 +120,20 @@
                     <td>
                       <%= datas.product_price %>
                     </td>
-                    <td><img src="<%= datas.image[0].url%>" style="width: 4em;height: 4em;"> </td>                 
-               
+                    <td>
+                      <% if( datas.image[0]){%>
+                      <img src="<%= datas.image[0].url%>" style="width: 4em;height: 4em;"> </td>
+
+                      <%}%>
+
                     <td>
                       <form action="/product/deleteProduct/<%= datas._id %>?_method=PUT" method="post"><button
                           class="btn btn-primary " type="submit"
                           onclick="return confirm('Do you want to delete <%= datas.product_name%>?')">Remove</button>
                       </form>
                     </td>
+                    <td> <a href="/product/editproduct/<%=datas._id%>" class="btn btn-primary btn-block text-uppercase ">Edit
+                        Product</a></td>
                     <td>
                       <%}%>
                     </td>
@@ -149,7 +155,7 @@
 
         Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
       </p>
-        </div>
+    </div>
   </footer>
 
 
