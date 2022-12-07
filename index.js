@@ -108,7 +108,7 @@ app.use("/banner",bannerRouter)
 
 
 mongoose.connect('mongodb://127.0.0.1:27017/DATAS?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.5.4').then(() => {
-    app.listen(3005, () => { console.log('server running') })
+    app.listen(3000, () => { console.log('server running') })
 })
     .catch((err) => {
         console.log('there is error');
