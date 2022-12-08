@@ -165,7 +165,7 @@ const productManagment = async (req, res) => {
     const category = await Category.find({})
     const subcategory = await subCategory.find({})
 
-    res.render('adminPages/Brand', { brand, category, subcategory })
+    res.render('adminPages/productMangment', { brand, category, subcategory })
 }
 
 

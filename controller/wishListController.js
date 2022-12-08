@@ -64,7 +64,7 @@ const userWishlist = async (req, res) => {
         ]);
 
 
-        res.render('userpage/wishlist', { wishlistProducts })
+        res.render('userpage/productWishlist', { wishlistProducts })
     } catch (err) {
         // res.render('error', { err })
     }
