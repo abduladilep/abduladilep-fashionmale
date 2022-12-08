@@ -2,79 +2,27 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title> Banners</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
-
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
-<!-- https://fonts.google.com/specimen/Roboto -->
-<link rel="stylesheet" href="/adminpublic/css/fontawesome.min.css">
-<!-- https://fontawesome.com/ -->
-<link rel="stylesheet" href="/adminpublic/css/bootstrap.min.css">
-<!-- https://getbootstrap.com/ -->
-<link rel="stylesheet" href="/adminpublic/css/templatemo-style.css">
-
-
-
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="/adminpublic/css/admin/owl.carousel.min.css" rel="stylesheet">
-    <link href="/adminpublic/css/admin/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="/adminpublic/css/admin/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="/adminpublic/css/admin/style.css" rel="stylesheet">
-
-    <!-- data tabel css -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
-   
-
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700" />
-  <!-- https://fonts.google.com/specimen/Roboto -->
-  <link rel="stylesheet" href="css/fontawesome.min.css" />
-  <!-- https://fontawesome.com/ -->
-  <link rel="stylesheet" href="css/bootstrap.min.css" />
-  <!-- https://getbootstrap.com/ -->
-  <link rel="stylesheet" href="css/templatemo-style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Product Admin - Dashboard HTML Template</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+    <!-- https://fonts.google.com/specimen/Roboto -->
+    <link rel="stylesheet" href="/Adminpublic/css/fontawesome.min.css">
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="/Adminpublic/css/bootstrap.min.css">
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="/Adminpublic/css/templatemo-style.css">
+    <!--
+	Product Admin CSS Template
+	https://templatemo.com/tm-524-product-admin
+	-->
 </head>
-
-
-
-<body  id="reportsPage">
-        <!-- Spinner Start -->
-        <!-- <div id="spinner"
-            class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div> -->
-        <!-- Spinner End -->
-
-
-        <!-- Sidebar Start -->
-     
-   
+<body id="reportsPage">
     <div class="" id="home">
         <nav class="navbar navbar-expand-xl">
             <div class="container h-100">
-                <a class="navbar-brand" href="/admin/dashboard">
+                <a class="navbar-brand" href="/index">
                     <h1 class="tm-site-title mb-0">Product Admin</h1>
                 </a>
                 <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse"
@@ -86,20 +34,18 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto h-100">
                         <li class="nav-item">
-                            <a class="nav-link active" href="/admin/dashboard">
+                            <a class="nav-link " href="/admin/index">
                                 <i class="fas fa-tachometer-alt"></i>
                                 Dashboard
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item ">
 
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link " href="/admin/userMangment" id="navbar" role="button" data-toggle=""
+                                aria-haspopup="true" aria-expanded="false">
                                 <i class="far fa-file-alt"></i>
-                                <span>
-                                    Managment<i class="fas fa-angle-down"></i>
-                                </span>
+                                 <span> Managment <i class="fas fa-angle-down"></i> </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/admin/userMangment">User Managment</a>
@@ -108,13 +54,12 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/product/product">
+                            <a class="nav-link" href="/product/Product">
                                 <i class="fas fa-shopping-cart"></i>
                                 Products
                             </a>
                         </li>
-
-
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="/admin/coupon">
                                 <i class="far fa-user"></i>
@@ -136,6 +81,22 @@
                             </a>
                         </li>
                     </ul>
+                        <!--    <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-cog"></i>
+                                <span>
+                                    Settings <i class="fas fa-angle-down"></i>
+                                </span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Profile</a>
+                                <a class="dropdown-item" href="#">Billing</a>
+                                <a class="dropdown-item" href="#">Customize</a>
+                            </div>
+                        </li> -->
+                 
+                   
                 </div>
             </div>
 
@@ -182,17 +143,19 @@
             </nav> -->
             <!-- Navbar End -->
 
-            <div class="m-4 d-flex">
-                <a href="/banner/addbanner" class="btn btn-primary">New banner</a>
-
-            </div>
+            
             <div class="container">
+                <div class="m-4 d-flex">
+                    <a href="/banner/addbanner" class="btn btn-primary">New banner</a>
+                
+                </div>
                 <table id="example" class="table table-striped table-bordered " style="width:100%">
                     <thead>
                         <tr>
                             <th>Highlight</th>
                             <th>Description</th>
                             <th>Image</th>
+                            <!-- <th>Delete</th> -->
                         </tr>
                     </thead>
 
@@ -214,15 +177,7 @@
 
 
             <!-- Footer Start -->
-        <footer class="tm-footer row tm-mt-small">
-            <div class="col-12 font-weight-light">
-                <p class="text-center text-white mb-0 px-4 small">
-                    Copyright &copy; <b>2018</b> All rights reserved.
-        
-        
-                </p>
-            </div>
-        </footer>
+      
             <!-- Footer End -->
         </div>
         <!-- Content End -->
@@ -234,7 +189,7 @@
 
     <!-- JavaScript Libraries -->
 
-    <script src="/adminjs/jquery-3.3.1.min.js"></script>
+  
     <!-- https://jquery.com/download/ -->
     <script src="js/moment.min.js"></script>
     <!-- https://momentjs.com/ -->
@@ -243,22 +198,11 @@
     <script src="js/bootstrap.min.js"></script>
     <!-- https://getbootstrap.com/ -->
     <script src="js/tooplate-scripts.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/admin/chart.min.js"></script>
-    <script src="js/admin/easing.min.js"></script>
-    <script src="js/admin/waypoints.min.js"></script>
-    <script src="js/admin/owl.carousel.min.js"></script>
-    <script src="js/admin/moment.min.js"></script>
-    <script src="js/admin/moment-timezone.min.js"></script>
-    <script src="js/admin/tempusdominus-bootstrap-4.min.js"></script>
 
     <!-- Template Javascript -->
     <script src="js/admin/main.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+   
 
 
 

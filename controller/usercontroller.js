@@ -114,15 +114,8 @@ const shop = async (req, res) => {
 const about = (req, res) => {
     res.render('userpage/about')
 }
-// const shopdetails = (req, res) => {
-//     res.render('userpage/shop-details')
-// }
-// const cart=(req,res)=>{
-//     res.render('userpage/shopping-cart')
-// }
-// const checkouts = (req, res) => {
-//     res.render('userpage/checkouts')
-// }
+
+
 
 const contact = async (req, res) => {
     // const user=await User.find({})
@@ -160,7 +153,7 @@ const signinPost = async (req, res) => {
         type,
         state
     } = req.body;
-    // console.log(Email);
+ 
 
     const hash = await bcrypt.hash(Password, 12)
     const user = new User({
@@ -339,7 +332,6 @@ module.exports = {
     homepage,
     shop,
     about,
-    // shopdetails,
     contact,
     blog,
     signin,
