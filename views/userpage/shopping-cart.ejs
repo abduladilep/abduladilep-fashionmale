@@ -260,7 +260,7 @@
                             <!-- <li>Discount<span id="discount">0</span> -->
 
                             </li>
-                            <li>Shipping <span id="subtotal">
+                            <li>Shipping <span id="shipping">
                                     <%= shipping %>
                                 </span></li>
                             <li>Grand Total <span id="grandtotal">
@@ -400,8 +400,10 @@
                             let price = document.getElementById('product_price' + id).innerHTML
                             let total = document.getElementById('total' + cartid)
                             let subtotal = document.getElementById('subtotal')
+
                             let grandtotal = document.getElementById('grandtotal')
                             let shipping = document.getElementById('shipping')
+                            console.log("shipping",shipping);
 
 
                             console.log("subtotalll", subtotal.innerHTML)
@@ -420,14 +422,16 @@
                                     let totals = parseInt(price) * parseInt(document.getElementById(cartid).value)
                                     total.innerHTML = String(totals);
 
-                                    document.getElementById('subtotal').innerHTML = Number(subtotal.innerHTML) + Number(price)
-
-                                    if (subtotal.innerHTML > 15000) {
+                                  subtotal.innerHTML = Number(subtotal.innerHTML) + Number(price)
+                                    console.log("subtotla innneer html",subtotal.innerHTML);
+                                    if ( subtotal.innerHTML > 15000) {
                                         shipping.innerHTML = "0"
                                     } else {
+                                        console.log("fgfgdfgshiping", shipping.innerHTML );
                                         shipping.innerHTML = "150"
                                     }
                                     document.getElementById('grandtotal').innerHTML = Number(subtotal.innerHTML) + Number(shipping.innerHTML)
+                                    console.log('fdgfsgkfgfdsj');   
 
                                 })
                         }
@@ -438,7 +442,9 @@
                             let cartid = String(id)
 
                             let price = document.getElementById('product_price' + id).innerHTML
+                           
                             let total = document.getElementById('total' + cartid)
+
                             let subtotal = document.getElementById('subtotal')
                             let grandtotal = document.getElementById('grandtotal')
                             let shipping = document.getElementById('shipping')
@@ -463,20 +469,28 @@
 
                                         document.getElementById(id).value--
                                         let totals = parseInt(price) * parseInt(document.getElementById(cartid).value)
+                                        console.log("totals",totals);
                                         total.innerHTML = String(totals);
 
-                                        document.getElementById('subtotal').innerHTML = parseInt(document.getElementById('subtotal').innerHTML) - parseInt(document.getElementById('product_price' + id).innerHTML)
+
+                                        
+                                        subtotal.innerHTML = parseInt(document.getElementById('subtotal').innerHTML) - parseInt(document.getElementById('product_price' + id).innerHTML)
+                                        
+                                        console.log("subtotal",subtotal);
 
                                         if (parseInt(document.getElementById('subtotal').innerHTML) < 15000) {
-                                            document.getElementById('discount').innerHTML = 0
+                                            document.getElementById('shipping').innerHTML = "0"
 
                                         }
                                         if (subtotal.innerHTML > 15000) {
                                             shipping.innerHTML = "0"
                                         } else {
                                             shipping.innerHTML = "150"
+
                                         }
+                                      
                                         document.getElementById('grandtotal').innerHTML = Number(subtotal.innerHTML) + Number(shipping.innerHTML)
+                
 
                                     })
                             }
@@ -504,7 +518,6 @@
                         }
 
 
-                     
 
 
 

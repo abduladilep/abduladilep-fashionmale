@@ -23,7 +23,7 @@ const addBanner = async (req, res) => {
 }
 
 const saveBanner = async (req, res) => {
-    console.log("asdnsajdnjs");
+   
     try {
         const banner = new bannerData({
             highlight: req.body.highlight,
@@ -34,7 +34,6 @@ const saveBanner = async (req, res) => {
         console.log("data", banner);
         banner.images = req.files.map(f => ({ url: f.path, filename: f.filename }))
         await banner.save()
-        console.log("after", banner);
         req.flash("success", 'Banner added successfully')
         res.redirect('back')
     } catch (err) {

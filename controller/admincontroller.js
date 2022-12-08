@@ -17,7 +17,7 @@ const admiLogin = (req, res) => {
 }
 
 const adminPost = async (req, res) => {
-    console.log("fgfgdgdg");
+  
 
     const { Email, password } = req.body
     const admin = await Admin.findOne({ Email })
@@ -119,7 +119,7 @@ const orderItems = async (req, res) => {
         const cartList = await CheckoutData.aggregate([{ $match: { _id: cartId } }, { $unwind: '$cartItems' },
         { $project: { item: '$cartItems.ProductId', itemQuantity: '$cartItems.quantity' } },
         { $lookup: { from: 'products', localField: 'item', foreignField: '_id', as: 'product' } }]);
-        console.log("ffjgjgjgg", cartList);
+      
 
         res.send({ cartList })
     } catch (err) {
@@ -140,11 +140,11 @@ const userManagment = async (req, res) => {
 const editUser = async (req, res) => {
     try {
         const id = req.params.id
-        console.log(id);
+       
 
         const userid = new mongoose.Types.ObjectId(id)
 
-        console.log(userid);
+   
 
         const user = await User.findById(userid)
         console.log(user);
@@ -160,7 +160,7 @@ const editUser = async (req, res) => {
     }
 }
 
-const productManagment = async (req, res) => {
+const manageProduct = async (req, res) => {
     const brand = await Brand.find({})
     const category = await Category.find({})
     const subcategory = await subCategory.find({})
@@ -181,6 +181,7 @@ module.exports = {
     editUser,
     productOrders,
     orderItems,
-    productManagment,
+    // productManagment,
+    manageProduct,
 
 }

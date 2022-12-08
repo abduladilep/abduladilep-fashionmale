@@ -31,7 +31,7 @@ const product = async (req, res) => {
 
 
 const addProduct = async (req, res) => {
-    console.log("hhhhhhh");
+   
     const category = await Category.find({})
     const subcategory = await subCategory.find({})
     res.render("adminpages/addProduct", { category, subcategory })
@@ -43,7 +43,7 @@ const addProduct = async (req, res) => {
 const addProductPost = async (req, res) => {
 
     const { product, description, categoryId, subcategoryId, price, stock } = req.body
-    console.log(req.body.subcategoryId);
+    
     const newProduct = new Product({
         product_name: product,
         product_description: description,
@@ -89,7 +89,6 @@ const viewProductDetails = async (req, res) => {
         const { id } = req.params
         const details = await Product.findById(id)
         const category = await Category.find({})
-        console.log("rrrr", category);
         res.render('userpage/shop-details', { details, user, category })
     } catch (err) {
         res.render('error', { err })
@@ -97,14 +96,6 @@ const viewProductDetails = async (req, res) => {
 
 }
 
-// const editProduct = async (req,res)=>{
-
-   
-
-//     console.log("ppppppp");
-
-//     res.render("adminpages/editProduct")
-// }
 
 const editproduct = async (req, res) => {
    
@@ -113,7 +104,7 @@ const editproduct = async (req, res) => {
     const datas = await Product.findById(id)
     const categories = await Category.find({})
     
-    console.log("datasssyrfhg6",datas);
+   
     const productId = datas._id
     const category_id = datas._id
 
@@ -134,7 +125,6 @@ const editproduct = async (req, res) => {
         },
     ]);
      console.log(categorylook);
-    // console.log(categorylook[0].category[0]);
 
     const categoryFind = await Category.find({});
 
@@ -145,12 +135,11 @@ const editproduct = async (req, res) => {
 
 const editProduct = async (req, res) => {
     const { id } = req.params
-    console.log("pooo",req.params);
-    // console.log('edited')
+
     const edit = req.body
    const pro= await Product.findByIdAndUpdate(id, { $set: edit })
 
-   console.log("pro");
+   
     res.redirect('/product/product')
 
 }

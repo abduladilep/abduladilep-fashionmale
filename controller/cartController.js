@@ -9,18 +9,18 @@ const { product } = require('./productController');
 
 
 const addToCart = async (req, res) => {
-    console.log("hgsad");
+   
     const userId = req.session.userId
     const productId = req.body.id
 
-    console.log("pprooooo", productId)
+  
 
     try {
 
         if (req.session.userId) {
 
             const userExist = await CartItem.findOne({ user: userId })
-            console.log("userexist", userExist);
+            
 
             if (userExist) {
                 const productExist = await CartItem.findOne({
@@ -45,16 +45,16 @@ const addToCart = async (req, res) => {
                     }, { $inc: { "cartItem.$.quantity": 1 } })
 
 
-                    console.log("Old product");
+                   
                 }
                 else {
                     await CartItem.updateOne({ user: userId }, { $push: { cartItem: { ProductId: productId, quantity: 1 } } })
 
-                    console.log("newwwww product");
+                   
                 }
 
             } else {
-                console.log("New User");
+              
                 const cart = new CartItem({
                     user: userId, cartItem: [{ ProductId: productId, quantity: 1 }]
                 })
@@ -105,8 +105,7 @@ const userCart = async (req, res) => {
         }
         const grandtotal = subtotal + shipping
         
-        console.log("lll",grandtotal);
-
+       
         res.render('userpage/shopping-cart', { cartList, subtotal, total, shipping, grandtotal })
 
 
@@ -126,8 +125,7 @@ const itemInc = async (req, res) => {
 
 
         const userExist = await CartItem.findOne({ user: userId })
-        console.log("userexist", userExist);
-
+      
 
 
         if (userExist) {
@@ -191,7 +189,7 @@ const itemDec = async (req, res) => {
         }
 
     } catch (err) {
-        // res.render('error',{err})
+        res.render('error',{err})
     }
 }
 
@@ -210,7 +208,7 @@ const itemDelete = async (req, res) => {
 
 
     } catch (err) {
-        // res.render('error',{err})
+        res.render('error',{err})
     }
 }
 

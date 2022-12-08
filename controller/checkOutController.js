@@ -136,7 +136,7 @@ const placeOrder = async (req, res) => {
         let status = req.body.payment === 'cod' ? false : true
 
 
-        console.log("iiii", items.cartItem);
+       
 
         const orderData = new CheckoutData({
             userId,
@@ -156,8 +156,7 @@ const placeOrder = async (req, res) => {
 
 
 
-        console.log("uuu", orderData);
-
+       
         orderData
             .save()
             .then((orderData) => {
@@ -170,7 +169,7 @@ const placeOrder = async (req, res) => {
                     const total = orderData.bill
                     generateRazorpay(orderId, total).then((response) => {
                         res.json(response)
-                        console.log("saved");
+                       
 
                     })
                 }
@@ -181,14 +180,14 @@ const placeOrder = async (req, res) => {
             })
 
         await CartItem.deleteOne({ _id: cartId })
-        console.log("aqqqqq");
+      
     } catch (err) {
         // res.render('error',{err})
     }
 }
 
 const orderSuccess = async (req, res) => {
-    console.log("pppppp");
+   
     try {
         const userId = req.session.userId
         const productId = req.params
@@ -264,7 +263,7 @@ const orderedProducts = async (req, res) => {
     try {
 
         const cartId = mongoose.Types.ObjectId(req.body)
-        console.log("gggg", cartId);
+       
 
         const cartList = await CheckoutData.aggregate([{ $match: { _id: cartId } }, { $unwind: '$cartItems' },
         { $project: { item: '$cartItems.ProductId', itemQuantity: '$cartItems.quantity' } },
@@ -282,7 +281,7 @@ const orderedProducts = async (req, res) => {
 
 
 const cancelOrder = async (req, res) => {
-    console.log("neeeti therichooo");
+   
 
     try {
         const { id } = req.params

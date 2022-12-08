@@ -70,7 +70,7 @@ const couponAdd = async (req, res) => {
 
 
 const couponDelete = async (req, res) => {
-    console.log("delete ayye");
+   
     console.log(req.body);
     let isDelete;
     const id = mongoose.Types.ObjectId(req.body.id);
@@ -107,21 +107,21 @@ const applyCoupen = async (req, res) => {
             if (code[0].expDate > Date.now()) {
 
 
-                console.log("usercode", code);
+                
 
 
                 const userId = req.session.userId
 
-                console.log("userId", userId);
+              
 
                 const user = await CheckoutData.findOneAndUpdate({ userId: userId }, { coupenCode: usercode })
-                console.log("user", user);
+             
 
                 const discount = code[0]
 
 
                 res.send({ success: discount })
-                // console.log(discount);
+                
                 console.log(res.send);
             } else {
                 console.log("expired", code);

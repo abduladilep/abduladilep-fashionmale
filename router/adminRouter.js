@@ -20,7 +20,9 @@ admin_router.get('/userMangment',adminController.userManagment)
 admin_router.put('/edituser/:id',adminController.editUser)
 
 
-admin_router.get("/productManagment",adminController.productManagment)
+// admin_router.get("/productManagment",adminController.productManagment)
+
+admin_router.get("/manageProduct",adminController.manageProduct)
 
 
 admin_router.get('/orders',adminController. productOrders)

@@ -48,7 +48,7 @@ const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
 const homepage = async (req, res) => {
     const userId = req.session.userId
     const user = await User.find({ userId })
-    console.log("asdasf", user);
+  
 
     try {
         let cartCount;
@@ -72,7 +72,7 @@ const homepage = async (req, res) => {
 
         const newProduct = await product.find({})
 
-        console.log("ppp", products);
+        
         const categories = await Category.find({})
 
         const banner = await bannerData.find({}).sort({ date: -1 })
@@ -92,14 +92,9 @@ const homepage = async (req, res) => {
 }
 
 
-// const homepage = (req, res) => {
-//     const user = req.session.useremail
-//     console.log(req.session);
-//     res.render('userpage/index', { user })
-// }
 
 const shop = async (req, res) => {
-    console.log(req.session.useremail);
+   
     const newProduct = await product.find()
     const newCategory = await Category.find()
     const newsubCategory = await subCategory.find()
@@ -121,13 +116,15 @@ const contact = async (req, res) => {
     // const user=await User.find({})
     const email = req.session.email
     const user = await User.findOne({ email })
-    console.log("myaccount", user);
+   
     // const userId = users[0]._id
     // const user = await User.findById(userId)
+
     const useraddress = user.userAddres
     console.log("myacuntadrss", useraddress);
 
     res.render('userpage/contact', { user, useraddress })
+
 }
 
 const blog = (req, res) => {
@@ -162,12 +159,11 @@ const signinPost = async (req, res) => {
         Email,
         Password: hash,
         type,
-        state: false,
+        state: true,
     })
 
     req.session.useremail = req.body.Email
 
-    console.log("session:", req.session.useremail);
 
     const mailOptions = {
         from: "adilep7165@gmail.com",
@@ -230,7 +226,7 @@ const loginpost = async (req, res) => {
         }
     }
     else {
-        console.log("bocked");
+        console.log("blocked");
         res.redirect('/userLogin')
     }
 }
@@ -272,7 +268,7 @@ const saveAddress = async (req, res) => {
         if (!req.body) {
             // req.flash('error', 'Empty fields are not allowed')
             res.redirect('back')
-            console.log("fghjk");
+           
         }
         else {
 
@@ -296,21 +292,27 @@ const saveAddress = async (req, res) => {
 
 
 const myaccount = async (req, res) => {
+
     // const user=await User.find({})
+
     const userId = req.session.userId
-    const email = req.session.email
-    const user = await User.findOne({ email })
+    console.log("user",userId);
+    const email = req.session.useremail
+    const user = await User.findOne({Email:email})
+    
+    console.log("user",email);
+    console.log("ffff",user);
 
     // const userId = users[0]._id
     // const user = await User.findById(userId)
+
     const useraddress = user.userAddres
+
     const orderData = await CheckoutData.find({ userId })
-    console.log("oorrr", orderData);
 
     res.render("userpage/myaccount", { user, useraddress, orderData })
+    
 }
-
-
 
 const deleteAddress = async (req, res) => {
     try {
@@ -318,15 +320,18 @@ const deleteAddress = async (req, res) => {
         const _id = req.session.userId
 
         const { id } = req.params
-        console.log("iiid", id);
+        
         // const deletion = await User.findByIdAndUpdate({_id,"userAddres":id},{$unset:{"userAddres":id}})
-        console.log("jjjjjj", deletion)
+        
         // deletion.remove()
         res.send({ success: true })
     } catch (err) {
         // res.render('error',{err})
     }
 }
+
+
+
 
 module.exports = {
     homepage,

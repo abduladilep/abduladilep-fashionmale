@@ -10,14 +10,14 @@ const { exists } = require("../model/userScheema")
 
 const addBrand = async (req, res) => {
     const brand = req.body.brand
-    console.log(req.body.brand);
+  
 
     const newbrand = new Brand({
         brand: brand
     })
     try {
         await newbrand.save()
-        console.log(newbrand);
+       
 
     } catch (error) {
         req.flash = ("msg", "brand not exists")

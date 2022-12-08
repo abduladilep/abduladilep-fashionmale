@@ -17,7 +17,7 @@ const catagorySort = async (req, res) => {
    const catagoryId = mongoose.Types.ObjectId(req.body.catagoryId);
 
    const product = await Product.find({ category_id: catagoryId })
-   console.log("ffff", product);
+  
 
    res.send({ product });
 

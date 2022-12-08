@@ -8,13 +8,13 @@ const Admin = require("../model/adminScheema")
 
 const addCategory = async (req, res) => {
     const category = req.body.category
-    console.log(req.body.category);
+   
     const newCategory = new Category({
         category: category
     })
     try {
         await newCategory.save()
-        console.log("enterd");
+    
 
     } catch (error) {
         req.flash("msg", "category already exist")
@@ -42,7 +42,7 @@ const addsubCategory = async (req, res) => {
     const subcategory = req.body.subcategory
     const category = req.body.category
 
-    console.log(category);
+  
 
 
     const newsubCategory = new subCategory({
@@ -52,7 +52,7 @@ const addsubCategory = async (req, res) => {
     })
     try {
         await newsubCategory.save()
-        console.log(newsubCategory);
+      
     } catch (error) {
 
 
