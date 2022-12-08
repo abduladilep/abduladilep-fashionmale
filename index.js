@@ -98,7 +98,9 @@ app.use("/wishlist",wishlistRouter)
 app.use("/checkout",checkoutRouter)
 app.use("/banner",bannerRouter)
 
-
+app.get("*", (req, res) => {
+    res.render("./userpage/error.ejs")
+})
 
 
 

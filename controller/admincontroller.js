@@ -108,7 +108,7 @@ const productOrders = async (req, res) => {
         // console.log(orderId);
         res.render('adminpages/orderManagment', { orderData })
     } catch (err) {
-        // res.render('error', { err })
+        res.render('error', { err })
     }
 }
 
@@ -123,7 +123,7 @@ const orderItems = async (req, res) => {
 
         res.send({ cartList })
     } catch (err) {
-        // res.render('error', { err })
+        res.render('error', { err })
     }
 }
 
@@ -165,7 +165,7 @@ const productManagment = async (req, res) => {
     const category = await Category.find({})
     const subcategory = await subCategory.find({})
 
-    res.render('adminPages/productMangment', { brand, category, subcategory })
+    res.render('adminPages/productManage', { brand, category, subcategory })
 }
 
 
