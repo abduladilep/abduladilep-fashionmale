@@ -9,7 +9,7 @@ const { userSessionChecker } = require("../middlewear/middlewear")
 
 cart_Router.post('/addToCart', cartController.addToCart)
 
-cart_Router.get('/cart', userSessionChecker ,cartController.userCart)
+cart_Router.get('/cart' ,cartController.userCart)
 
 cart_Router.post('/itemInc', cartController.itemInc)
 

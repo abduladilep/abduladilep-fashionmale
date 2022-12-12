@@ -13,6 +13,7 @@ const CartItems = require("../model/cartScheema")
 const CheckoutData = require('../model/checkoutSchema')
 const Wishlist = require('../model/wishListScheema')
 const bannerData = require("../model/bannerSchema")
+const heroData = require("../model/heroScheema")
 const newBrand = require("../model/brandSchema")
 
 
@@ -56,7 +57,10 @@ const homepage = async (req, res) => {
         let cartItems;
         let wishlistItems
         let orderData
+       
         if (req.session.userId) {
+
+
 
             orderData = await CheckoutData.find({ userId: userId })
 
@@ -72,6 +76,9 @@ const homepage = async (req, res) => {
 
         const newProduct = await product.find({})
 
+        const hero =await heroData.find({}).sort({date: -1})
+
+        console.log("hero",hero)
         
         const categories = await Category.find({})
 
@@ -83,11 +90,11 @@ const homepage = async (req, res) => {
             }, { deleted: false }]
         }).limit(4)
 
-        res.render('userpage/index', { banner, userId, newProduct })
+        res.render('userpage/index', { banner,hero, userId, newProduct })
 
 
     } catch (err) {
-        res.render('error', { err })
+        // res.render('error', { err })
     }
 }
 
@@ -99,8 +106,9 @@ const shop = async (req, res) => {
     const newCategory = await Category.find()
     const newsubCategory = await subCategory.find()
     const newBrand = await Brand.find()
+    const user=req.session.userId
 
-    res.render('userpage/shop', { newProduct, newCategory, newsubCategory, newBrand })
+    res.render('userpage/shop', { newProduct, newCategory, newsubCategory, newBrand,user })
 }
 
 
@@ -221,12 +229,13 @@ const loginpost = async (req, res) => {
         console.log(req.session.userId)
 
         if (user.state) {
+            console.log(req.headers.referer);
 
-            res.redirect("/")
+            res.redirect('..')
         }
     }
     else {
-        console.log("blocked");
+       
         res.redirect('/userLogin')
     }
 }
@@ -305,13 +314,15 @@ const myaccount = async (req, res) => {
 
     // const userId = users[0]._id
     // const user = await User.findById(userId)
+    if(user){
 
     const useraddress = user.userAddres
 
-    const orderData = await CheckoutData.find({ userId })
-
+    const orderData = await CheckoutData.find({ userId,onlinePaymentSuccess:true })
     res.render("userpage/myaccount", { user, useraddress, orderData })
-    
+    }else{
+      res.redirect('/userLogin')
+    }
 }
 
 const deleteAddress = async (req, res) => {

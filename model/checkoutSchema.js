@@ -49,6 +49,12 @@ const checkoutSchema = new mongoose.Schema({
             default: Date.now()
         },
     }],
+onlinePaymentSuccess:{
+
+    type: Boolean,
+    defualt:false
+},
+
     isCompleted: {
         type: Boolean,
         default: false

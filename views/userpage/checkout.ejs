@@ -80,16 +80,9 @@
                         <div class="header__top__right">
                             <div class="header__top__links">
                                 <a href="#">Sign in</a>
-                                <a href="#">FAQs</a>
+                              
                             </div>
-                            <div class="header__top__hover">
-                                <span>Usd <i class="arrow_carrot-down"></i></span>
-                                <ul>
-                                    <li>USD</li>
-                                    <li>EUR</li>
-                                    <li>USD</li>
-                                </ul>
-                            </div>
+                         
                         </div>
                     </div>
                 </div>
@@ -107,14 +100,7 @@
                         <ul>
                             <li class="active"><a href="/">Home</a></li>
                             <li><a href="/shop">Shop</a></li>
-                            <li><a href="#">Pages</a>
-                                <ul class="dropdown">
-                                    <li><a href="/about">About Us</a></li>
-                                    <li><a href="//product/productDetails">Shop Details</a></li>
-                                    <li><a href="/Cart/cart">Shopping Cart</a></li>
-                                    <li><a href="/checkout/checkout">Check Out</a></li>
-                                    <li><a href="/wishlist/wishlist">wishlist</a></li>
-                                </ul>
+                          
                                 
                             </li>
                             <li><a href="/myaccount">Account</a></li>
@@ -126,7 +112,7 @@
                     <div class="header__nav__option">
                         <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
                         <a href="#"><img src="img/icon/heart.png" alt=""></a>
-                        <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
+                        <a href="#"><img src="img/icon/cart.png" alt=""> <span></span></a>
 
                     </div>
                 </div>
@@ -392,23 +378,25 @@
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
         $("#pay").submit((e) => { 
-            console.log("ajnsj");
+           
             e.preventDefault()
             $.ajax({
                 url: '/checkout/placeOrder',
                 method: 'post',
                 data: $("#pay").serialize(),
                 success: (response) => {
-                    alert(response)
-                    if (response.codSuccess) {
+                    console.log("h7uy6gtr",response);
+                
+                    if (response.response.codSuccess) {
                         location.href = '/checkout/orderSuccess'
                     } else {
-                        razorpayPayment(response)
+                        razorpayPayment(response.response,response.orderId)
                     }
                 }
             })
         })
-        function razorpayPayment(order) {
+        function razorpayPayment(order,orderId) {
+            console.log("ggggg",order,orderId);
             var options = {
                 "key": "rzp_test_DftcNjVgIfTLh3", // Enter the Key ID generated from the Dashboard
                 "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
@@ -418,8 +406,9 @@
                 "image": "https://example.com/your_logo",
                 "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
                 "handler": function (response) {
+                    console.log(response);
 
-                    verifyPayment(response, order)
+                    verifyPayment(response, order,orderId)
                 },
                 "prefill": {
                     "name": "Gaurav Kumar",
@@ -436,12 +425,14 @@
             var rzp1 = new Razorpay(options)
             rzp1.open();
         }
-        function verifyPayment(payment, order) {
+        function verifyPayment(payment, order,orderId) {
+            console.log("sh",payment,order);
             $.ajax({
                 url: '/checkout/verifyPay',
                 data: {
                     payment,
-                    order
+                    order,
+                    orderId
                 },
                 method: 'post',
                 success: (response) => {
@@ -483,17 +474,17 @@ function coupen() {
         ;
         if (parseInt(document.getElementById('grandtotal').innerHTML) > 15000) {
 
+            
+
                 if (parseInt(document.getElementById('discount').innerHTML) > 0) {
-                    console.log("disssssssssss");
+                    
                     document.getElementById('button').disabled = true
-                    console.log("hfhfhghg");
                 } else {
                     coupen = Math.round(document.getElementById('grandtotal').innerHTML * (discount.discountPercentage / 100))
-                    console.log("cpn", coupen);
                     document.getElementById('discount').innerHTML = coupen
                     document.getElementById('grandtotal').innerHTML = parseInt(document.getElementById('grandtotal').innerHTML) - parseInt(coupen)
 
-                    console.log("heyyyyy");
+                  
                 }
             }
             else if (parseInt(document.getElementById('grandtotal').innerHTML) < 15000) {

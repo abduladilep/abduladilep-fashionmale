@@ -19,7 +19,7 @@ const addCategory = async (req, res) => {
     } catch (error) {
         req.flash("msg", "category already exist")
     }
-    res.redirect("/admin/ProductManagment")
+    res.redirect("/admin//manageProduct")
 }
 
 
@@ -29,7 +29,7 @@ const deleteCategory = async (req, res) => {
         const { id } = req.params
         const category = await Category.findByIdAndDelete(id)
 
-        res.redirect('/admin/productManagment')
+        res.redirect('/admin/manageProduct')
     } catch (err) {
         console.log(err);
     }
@@ -59,7 +59,7 @@ const addsubCategory = async (req, res) => {
 
         req.flash("msg", 'subcategory already exist')
     }
-    res.redirect('/admin/productManagment')
+    res.redirect('/admin/manageProduct')
 
 }
 
@@ -69,7 +69,7 @@ const deletesubCategory = async (req, res) => {
     try {
         const { id } = req.params
         const subcategory = await subCategory.findByIdAndDelete(id)
-        res.redirect('/admin/productManagment')
+        res.redirect('/admin/manageProduct')
     } catch (err) {
         console.log(err);
     }

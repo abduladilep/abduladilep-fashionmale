@@ -45,7 +45,7 @@ const addToWishlist = async (req, res) => {
                     res.send({ success: true })
                 })
                 .catch((err) => {
-                    // res.render('error', { err })
+                    res.render('error', { err })
                 })
         }
 
@@ -55,6 +55,7 @@ const addToWishlist = async (req, res) => {
 }
 
 const userWishlist = async (req, res) => {
+    const user=req.session.userId
 
     try {
         const userId = req.session.userId
@@ -64,9 +65,9 @@ const userWishlist = async (req, res) => {
         ]);
 
 
-        res.render('userpage/productWishlist', { wishlistProducts })
+        res.render('userpage/productWishlist', { wishlistProducts,user })
     } catch (err) {
-        // res.render('error', { err })
+        res.render('error', { err })
     }
 }
 
@@ -83,7 +84,7 @@ const deleteWishlist = async (req, res) => {
         res.send({ success: true })
 
     } catch (err) {
-        // res.render('error', { err })
+        res.render('error', { err })
     }
 }
 

@@ -135,7 +135,9 @@ const placeOrder = async (req, res) => {
         const bill = subtotal + shipping
         let status = req.body.payment === 'cod' ? false : true
 
-
+let onlinePaymentSuccess=req.body.payment ==='cod' ? true:false
+onlinePaymentSuccess=req.body.payment ==='Online' ? false:true
+ 
        
 
         const orderData = new CheckoutData({
@@ -150,7 +152,8 @@ const placeOrder = async (req, res) => {
 
             bill,
 
-            isCompleted: status
+            isCompleted: status,
+            onlinePaymentSuccess
 
         })
 
@@ -167,8 +170,10 @@ const placeOrder = async (req, res) => {
                 } else {
                     const orderId = orderData._id
                     const total = orderData.bill
+                    console.log("tyuio",orderData._id);
+                    
                     generateRazorpay(orderId, total).then((response) => {
-                        res.json(response)
+                        res.json({response,orderId})
                        
 
                     })
@@ -220,7 +225,11 @@ const orderSuccess = async (req, res) => {
 }
 
 const verifyPay = async (req, res) => {
+    console.log("verifypay");
+    
     verifyPay(req.body).then(() => {
+        
+        console.log("verifypay", req.body);
         changePaymentStatus(req.body).then(() => {
             res.json({ status: true })
         }).catch((err) => {
@@ -232,11 +241,18 @@ const verifyPay = async (req, res) => {
 }
 
 function changePaymentStatus(orderId) {
+    console.log("OIOOO",orderId);
+    console.log("OIOOO");
+
     return new Promise((resolve, reject) => {
-        const Id = mongoose.Types.ObjectId(orderId.id)
+        console.log("odrr.id",orderId.orderId);
+
+        const Id = mongoose.Types.ObjectId(orderId.orderId)
+        console.log("iiiddd",Id);
         CheckoutData.findByIdAndUpdate({ _id: Id }, {
             $set: {
-                isCompleted: true
+                isCompleted: true,
+                onlinePaymentSuccess:true
             }
         }).then(() => {
             resolve()
@@ -251,7 +267,7 @@ const viewOrders = async (req, res) => {
 
     try {
         const userId = req.session.userId
-        const orderData = await CheckoutData.find({ userId }).sort({ 'orderStatus.date': -1 })
+        const orderData = await CheckoutData.find({ userId,onlinePaymentSuccess:true }).sort({ 'orderStatus.date': -1 })
         console.log("orderview", orderData);
         res.render('userpage/orderDetails', { orderData })
     } catch (err) {

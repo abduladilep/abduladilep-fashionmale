@@ -66,14 +66,20 @@
                             <p>Free shipping, 30-day return or refund guarantee.</p>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-5">
-                        <div class="header__top__right">
-
-                            <div class="header__top__links">
-
-                                <a href="/Logout">Logout</a>
-
-
+                   
+                            <div class="col-lg-6 col-md-5">
+                                <div class="header__top__right">
+                                    <div class="header__top__links">
+                                        <% if(user){%>
+                                            <a href="/Logout">Logout</a>
+                                            <%}
+                                            else{%>
+                                                <a href="/signin">Sign in</a>
+                                                <%} %>
+                                                
+                                            </div>
+                                           
+                                </div>
                             </div>
                         </div>
 
@@ -94,15 +100,7 @@
                         <ul>
                             <li><a href="/">Home</a></li>
                             <li class="active"><a href="/shop">Shop</a></li>
-                            <li><a href="#">Pages</a>
-                                <ul class="dropdown">
-                                    <li><a href="/about">About Us</a></li>
-                                    <li><a href="">Shop Details</a></li>
-                                    <li><a href="/Cart/cart">Shopping Cart</a></li>
-                                    <li><a href="/checkout">Check Out</a></li>
-                                    <li><a href="/wishlist/wishlist">wishlist</a></li>
-                                </ul>
-                            </li>
+                            
                             <li><a href="/myaccount">Account</a></li>
                             <li><a href="/contact">Contacts</a></li>
                         </ul>
@@ -110,7 +108,7 @@
                 </div>
                 <div class="col-lg-3 col-md-3">
                     <div class="header__nav__option">
-                        <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
+                      
                         <a href="/wishlist/wishlist"><img src="img/icon/heart.png" alt=""></a>
                         <a href="/Cart/cart"><img src="img/icon/cart.png" alt=""> <span></span></a>
 
@@ -179,7 +177,7 @@
                                 </div>
                                 <div class="card">
                                     <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseTwo">Branding</a>
+                                        <!-- <a data-toggle="collapse" data-target="#collapseTwo">Branding</a> -->
                                     </div>
                                     <div id="collapseTwo" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
@@ -209,17 +207,13 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="shop__product__option__left">
-                                    <p>Showing 112 of 126 results</p>
+                                    <!-- <p>Showing 112 of 126 results</p> -->
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="shop__product__option__right">
-                                    <!-- <p>Sort by Price:</p> -->
-                                    <!-- <select>
-                                        <option value="">Low To High</option>
-                                        <option value="">$0 - $55</option>
-                                        <option value="">$55 - $100</option>
-                                    </select> -->
+                                   
+                                  
                                 </div>
                             </div>
                         </div>
@@ -232,9 +226,9 @@
                                     <ul class="product__hover">
                                         <li><a href=""><img src="img/icon/heart.png"
                                                     onclick="wishlist('<%= datas._id%>')" alt=""></a></li>
-                                        <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a>
+                                        <!-- <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a> -->
                                         </li>
-                                        <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
+                                        <!-- <li><a href="#"><img src="img/icon/search.png" alt=""></a></li> -->
 
                                     </ul>
                                 </div>
@@ -254,15 +248,11 @@
                                             style="margin-left:100px ;"> Viewdetails</a></div>
 
                                     <div class="rating">
-                                        <!-- <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i> -->
+                                      
                                     </div>
                                     <h5>₹<%=datas.product_price%>
                                     </h5>
-                                    <div class="product__color__select">
+                                    <!-- <div class="product__color__select">
                                         <label for="pc-4">
                                             <input type="radio" id="pc-4">
                                         </label>
@@ -272,7 +262,7 @@
                                         <label class="grey" for="pc-6">
                                             <input type="radio" id="pc-6">
                                         </label>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             <%}%>
@@ -370,11 +360,12 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Remove Item</h5>
+                        <h5 class="modal-title" id="exampleModalLabel"></h5>
                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                    <% if(user){ %>
                     <div class="modal-body">
                         Product Add  TO Cart ..?
                     </div>
@@ -384,6 +375,18 @@
                             data-dismiss="modal">
                             Add To Cart</button>
                     </div>
+                    <%} else {%>
+                    <div class="modal-body text-danger">
+                        You are not logged in !!
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-secondary" 
+                            data-bs-dismiss="modal"><a href="/userLogin">
+                            Go to Login Page</a></button>
+                    </div>
+                    <% } %>
+
                 </div>
             </div>
         </div>
@@ -402,7 +405,9 @@
                         body: JSON.stringify({ id })
 
                     })
+                  
                         .then(res => res.json())
+                
 
                 }
             </script>
@@ -423,11 +428,14 @@
                     })
                         .then(res => res.json())
                         .then(data => {
-                            if (data.success == true) {
+                         (data.success == true) 
 
-                            } else {
-
-                            }
+                         swal({
+                            title: "Add to Whishlist",
+                            text: "",
+                            icon: "success",
+                            button: "Done",
+                        });
                         })
                 }
             </script>

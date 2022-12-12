@@ -23,7 +23,7 @@ const addBrand = async (req, res) => {
         req.flash = ("msg", "brand not exists")
 
     }
-    res.redirect('/admin/productManagment')
+    res.redirect('/admin/manageProduct')
 
 }
 
@@ -32,7 +32,7 @@ const deleteBrand = async (req, res) => {
     try {
         const { id } = req.params
         const brand = await Brand.findByIdAndDelete(id)
-        res.redirect('/admin/productManagment')
+        res.redirect('/admin/manageProduct')
     } catch (err) {
         console.log(err);
     }

@@ -25,9 +25,9 @@ admin_router.put('/edituser/:id',adminController.editUser)
 admin_router.get("/manageProduct",adminController.manageProduct)
 
 
-admin_router.get('/orders',adminController. productOrders)
+// admin_router.get('/orders',adminController. productOrders)
 
-admin_router.get('/orders',adminController.productOrders)
+
 
 admin_router.post('/orderitems', adminController.orderItems)
 
@@ -39,7 +39,12 @@ admin_router.delete("/coupon",couponController.couponDelete);
 
 admin_router.post('/applyCoupen/:id',couponController. applyCoupen)
 
+admin_router.get('/orders',adminController.productOrders)
 
+admin_router.get('/editOrders/:id', adminController.editOrder)
 
+admin_router.post('/updateOrder/:id', adminController.updateOrder)
+
+admin_router.post('/logout', adminController.logout)
 
 module.exports=admin_router

@@ -64,6 +64,9 @@ const addToCart = async (req, res) => {
 
             }
 
+        }else{
+            console.log("ashgdas");
+            redirect("/userLogin")
         }
     } catch (err) {
         res.render('error', { err })
@@ -74,9 +77,11 @@ const userCart = async (req, res) => {
 
 
     try {
+        console.log("dfghjk");
+        if(req.session.userId){
+            const userId = req.session.userId
 
-        const userId = req.session.userId
-
+            console.log("shbash")
 
         const cartList = await CartItem.aggregate([{ $match: { user: userId } }, { $unwind: '$cartItem' },
         { $project: { item: '$cartItem.ProductId', itemQuantity: '$cartItem.quantity' } },
@@ -107,11 +112,17 @@ const userCart = async (req, res) => {
         
        
         res.render('userpage/shopping-cart', { cartList, subtotal, total, shipping, grandtotal })
+    }else{
+        console.log("hsgahsg");
+
+       res.redirect("/userLogin")
+
+    }
 
 
     } catch (err) {
 
-        res.render('error', { err })
+        res.redirect('error', { err })
     }
 }
 

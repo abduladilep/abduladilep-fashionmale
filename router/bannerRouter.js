@@ -10,7 +10,10 @@ const upload = multer({ storage });
 const {
     setBanner,
     addBanner,
-    saveBanner
+    saveBanner,
+    sethero,
+    savehero,
+    addhero,
 } = require('../controller/bannerConroller')
 
 // const {
@@ -20,5 +23,10 @@ const {
 bannerRouter.get('/setBanner', setBanner)
 bannerRouter.get('/addBanner', addBanner)
 bannerRouter.post('/addBanner/add', upload.array('image'), saveBanner)
+
+bannerRouter.get('/sethero', sethero)
+bannerRouter.get('/addhero', addhero)
+bannerRouter.post('/addhero/add', upload.array('image'), savehero)
+
 
 module.exports = bannerRouter
