@@ -132,7 +132,7 @@ const editproduct = async (req, res) => {
     const categoryFind = await Category.find({});
 
    
-    res.render('adminpages/editproduct', { datas, categorylook,categoryFind, categories })
+    res.render('adminpages/productEdit', { datas, categorylook,categoryFind, categories })
 
 }
 
