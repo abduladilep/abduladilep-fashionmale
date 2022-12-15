@@ -19,7 +19,7 @@ const addToWishlist = async (req, res) => {
 
         const userExist = await Wishlist.findOne({ userId: userId })
 
-        console.log("userexist", userExist);
+       
         if (userExist) {
             const productExist = await Wishlist.findOne({
                 $and: [{ userId: userId }, {
@@ -73,7 +73,7 @@ const userWishlist = async (req, res) => {
 
 
 const deleteWishlist = async (req, res) => {
-    console.log("sdfghjk");
+   
 
     try {
 

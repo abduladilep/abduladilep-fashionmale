@@ -94,7 +94,7 @@
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link d-block" href="/admin/adminLogin">
+                            <a class="nav-link d-block" href="/admin/adminLogout">
                              <b>Logout</b>
                             </a>
                         </li>
@@ -235,6 +235,11 @@
                                 <% } %>
                         </tbody>
                     </table>
+                    <div> <canvas id="worldwide-report" height="300"></canvas>
+                    <button class="mt-2" style="float: right; border-style:none" onclick="downloadThePDF()">
+                        Download PDF
+                       </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -301,6 +306,17 @@
         pdf.setFontSize(20)
         pdf.addImage(canvasImage, 'JPEG', 15, 15, 265, 150)
         pdf.save('revenuerecord.pdf')
+    }
+
+
+
+    function downloadThePDF() {
+        const canvas = document.getElementById('worldwide-report')
+        const canvasImage = canvas.toDataURL('image/jpeg', 1.0)
+        let pdf = new jsPDF('landscape')
+        pdf.setFontSize(20)
+        pdf.addImage(canvasImage, 'JPEG', 15, 15, 265, 150)
+        pdf.save('salesreport.pdf')
     }
 </script>
 <script>

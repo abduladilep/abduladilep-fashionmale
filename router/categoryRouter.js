@@ -9,10 +9,6 @@ const categoryController = require('../controller/categoryController')
 
 category_Router.use(express.static('public/adminpublic'))
 
-
-
-
-
 category_Router.post('/addCategory', categoryController.addCategory)
 
 category_Router.put('/deleteCategory/:id', categoryController.deleteCategory)

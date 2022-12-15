@@ -33,26 +33,6 @@ const checkoutPage = async (req, res) => {
 
 
 
-
-
-            // const items = await  CartItem.findOne({ userId: userId })
-            // console.log("items", items);
-            // let coupencode
-            // if (items.coupenCode) {
-            //     coupencode = items.coupenCode
-            // }
-
-            // let discount;
-            // if (coupencode) {
-            //     console.log("mxksmaks", coupencode);
-
-            //     const coupens = await Coupon.findOne({ coupenCode: coupencode })
-            //     const discountt = coupens.discountPercentage
-
-
-
-
-
                 let total;
                 let subtotal = 0;
 
@@ -69,23 +49,15 @@ const checkoutPage = async (req, res) => {
                 } else {
                     shipping = 0
                 }
-                // if (subtotal > 15000) {
-                //     discount = subtotal * (discountt / 100)
-                // } else {
-                //     discount = 0
-                // }
+               
                 let grandtotal
-                // if (discount) {
-                //     grandtotal = subtotal + shipping - discount
-                // } else {
                     grandtotal = subtotal + shipping
-                // }
-
+               
                 res.render("userpage/checkout", { cartList, grandtotal, shipping, subtotal, user, useraddres})
 
             } else {
                 req.flash('error', 'You are not logged in')
-                // res.redirect('back')
+                res.redirect('back')
             }
         }
     
@@ -97,29 +69,16 @@ const checkoutPage = async (req, res) => {
 const placeOrder = async (req, res) => {
 
     try {
-        // const usrId = req.session.user._id
-        // const userId = new mongoose.Types.ObjectId(usrId)
+        
         const userId = req.session.userId;
-
+        const totalId= req.params.id
         const prodId = req.body.cartId
-
-
         const cartId = new mongoose.Types.ObjectId(prodId)
         const items = await CartItem.findById({ _id: cartId })
-
-        // const coupencode = items.coupenCode
-        // let discount;
-        // if(coupencode) {
-        //     const coupens = await coupenData.findOne({code:coupencode})
-        //     discount = coupens.discount
-
-        // }
-
 
         const cartList = await CartItem.aggregate([{ $match: { user: userId } }, { $unwind: '$cartItem' },
         { $project: { item: '$cartItem.ProductId', itemQuantity: '$cartItem.quantity' } },
         { $lookup: { from: 'products', localField: 'item', foreignField: '_id', as: 'product' } }]);
-
 
         let total;
         let subtotal = 0;
@@ -132,14 +91,13 @@ const placeOrder = async (req, res) => {
         })
 
         const shipping = 150;
-        const bill = subtotal + shipping
+        const bill = totalId
         let status = req.body.payment === 'cod' ? false : true
 
 let onlinePaymentSuccess=req.body.payment ==='cod' ? true:false
 onlinePaymentSuccess=req.body.payment ==='Online' ? false:true
  
        
-
         const orderData = new CheckoutData({
             userId,
             cartItems: items.cartItem,
@@ -165,13 +123,13 @@ onlinePaymentSuccess=req.body.payment ==='Online' ? false:true
             .then((orderData) => {
                 if (orderData.paymentStatus == 'COD') {
                     const codSuccess = true
-                    res.send({ codSuccess })
+                    res.send({ codSuccess }) 
 
                 } else {
                     const orderId = orderData._id
-                    const total = orderData.bill
-                    console.log("tyuio",orderData._id);
+                    const total = parseInt(totalId)
                     
+                        
                     generateRazorpay(orderId, total).then((response) => {
                         res.json({response,orderId})
                        
@@ -180,14 +138,14 @@ onlinePaymentSuccess=req.body.payment ==='Online' ? false:true
                 }
 
             })
-            .catch((err) => {
-                //  res.render('error',{err})
+                .catch((err) => {
+                 res.render('error',{err})
             })
 
         await CartItem.deleteOne({ _id: cartId })
       
     } catch (err) {
-        // res.render('error',{err})
+        res.render('error',{err})
     }
 }
 
@@ -220,7 +178,7 @@ const orderSuccess = async (req, res) => {
         const orderData = await CheckoutData.find({ userId })
         res.render('userpage/orderSuccess', { cartList, bill, shipping, orderData })
     } catch (err) {
-        // res.render('error',{err})
+        res.render('error',{err})
     }
 }
 
@@ -231,35 +189,41 @@ const verifyPay = async (req, res) => {
         
         console.log("verifypay", req.body);
         changePaymentStatus(req.body).then(() => {
+            
+            
+           
+            
             res.json({ status: true })
+           
+
         }).catch((err) => {
             res.json({ status: false, errMsg: '' })
         })
     }).catch((err) => {
-        // res.render('error',{err})
+        // res.render('userpages/error')
     })
 }
 
 function changePaymentStatus(orderId) {
-    console.log("OIOOO",orderId);
-    console.log("OIOOO");
-
+   
     return new Promise((resolve, reject) => {
         console.log("odrr.id",orderId.orderId);
 
         const Id = mongoose.Types.ObjectId(orderId.orderId)
-        console.log("iiiddd",Id);
+      
         CheckoutData.findByIdAndUpdate({ _id: Id }, {
             $set: {
                 isCompleted: true,
                 onlinePaymentSuccess:true
             }
         }).then(() => {
+
             resolve()
+
         }).catch((err) => {
             res.render('error', { err })
         })
-
+       
     })
 }
 
@@ -268,7 +232,7 @@ const viewOrders = async (req, res) => {
     try {
         const userId = req.session.userId
         const orderData = await CheckoutData.find({ userId,onlinePaymentSuccess:true }).sort({ 'orderStatus.date': -1 })
-        console.log("orderview", orderData);
+       
         res.render('userpage/orderDetails', { orderData })
     } catch (err) {
         res.render('error', { err })

@@ -6,14 +6,11 @@ const { default: mongoose } = require('mongoose');
 const { product } = require('./productController');
 
 
-
-
 const addToCart = async (req, res) => {
    
     const userId = req.session.userId
     const productId = req.body.id
 
-  
 
     try {
 

@@ -5,7 +5,6 @@ const Product = require('../model/productSchema')
 const Admin = require("../model/adminScheema")
 
 
-
 const addCategory = async (req, res) => {
     const category = req.body.category
    
@@ -75,7 +74,6 @@ const deletesubCategory = async (req, res) => {
     }
 
 }
-
 
 
 

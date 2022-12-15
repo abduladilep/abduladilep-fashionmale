@@ -146,12 +146,11 @@
         <div class="container">
             <div class="checkout__form">
                 <form id="pay" method="post" >
-                    
+                   
 
                     <input type="hidden" value="<%= cartList[0]._id %>" name="cartId">
 
-                 
-                       
+                  
                      
                     
                     <div class="row">
@@ -201,11 +200,11 @@
 
                                                 <td>
                                                     <h5 style="font-weight:bolder">
-                                                        <%= add.Firstname + "  " +add.Lastname%>
+                                                        <%= add.Firstname %>
 
                                                     </h5>
                                                     <p>
-                                                        <%= add.street +" , "+add.houseNo +", "+add.district+","+add.state +" ,"+add.pincode%>
+                                                        <%= add.street +" , "+add.houseNo +", "+add.district+" ,"+add.pincode%>
 
                                                     </p>
                                                     <p>
@@ -377,13 +376,19 @@
 
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
+       
+
         $("#pay").submit((e) => { 
            
+
             e.preventDefault()
+            let total = document.getElementById('grandtotal').innerHTML
+total=parseInt(total)
+
             $.ajax({
-                url: '/checkout/placeOrder',
+                url: '/checkout/placeOrder/'+total,
                 method: 'post',
-                data: $("#pay").serialize(),
+                data:$("#pay").serialize(),
                 success: (response) => {
                     console.log("h7uy6gtr",response);
                 
@@ -396,10 +401,12 @@
             })
         })
         function razorpayPayment(order,orderId) {
+
+       
             console.log("ggggg",order,orderId);
             var options = {
                 "key": "rzp_test_DftcNjVgIfTLh3", // Enter the Key ID generated from the Dashboard
-                "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                "amount": 45454, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
                 "currency": "INR",
                 "name": "E-COMMERCE",
                 "description": "Test Transaction",
@@ -469,6 +476,7 @@ function coupen() {
     })
     .then(res => res.json())
     .then(data => {
+        console.log("daaataa",data);
         discount = data.success
         console.log(discount,"discount");
         ;
@@ -480,7 +488,23 @@ function coupen() {
                     
                     document.getElementById('button').disabled = true
                 } else {
-                    coupen = Math.round(document.getElementById('grandtotal').innerHTML * (discount.discountPercentage / 100))
+
+console.log("svssad",(parseInt(document.getElementById('grandtotal').innerHTML)));
+console.log("gffff",discount.minAmount);
+
+                    if(parseInt(document.getElementById('grandtotal').innerHTML)>discount.minAmount){
+                      
+                        
+
+                        coupen  =5000                      
+                    }else{
+
+                        coupen = Math.round(document.getElementById('grandtotal').innerHTML * (discount.discountPercentage / 100))
+                    }
+                    
+
+
+
                     document.getElementById('discount').innerHTML = coupen
                     document.getElementById('grandtotal').innerHTML = parseInt(document.getElementById('grandtotal').innerHTML) - parseInt(coupen)
 

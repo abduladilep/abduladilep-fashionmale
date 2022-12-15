@@ -93,7 +93,7 @@
               </ul>
               <ul class="navbar-nav">
                   <li class="nav-item">
-                      <a class="nav-link d-block" href="/admin/adminLogin">
+                      <a class="nav-link d-block" href="/admin/adminLogout">
                        <b>Logout</b>
                       </a>
                   </li>
@@ -155,13 +155,13 @@
                             <%= order.orderStatus[0].date.toLocaleDateString() %>
                           </td>
                           <td> <button data-bs-toggle="modal" class="btn btn-success rounded"
-                              onclick="products('<%= order._id %>')" data-bs-target="#exampleModal<%=order._id%>">Items</button></td>
+                              onclick="products('<%= order._id %>')" data-bs-target="#exampleModal">Items</button></td>
                 </tr>
                 <% } %>
             </tbody>
           </table>
         </div>
-        <!-- <footer class="tm-footer row tm-mt-small">
+        <footer class="tm-footer row tm-mt-small">
           <div class="col-12 font-weight-light">
             <p class="text-center text-white mb-0 px-4 small">
               Copyright &copy; <b>2018</b> All rights reserved.
@@ -169,13 +169,12 @@
               Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
             </p>
           </div>
-        </footer> -->
-  
+        </footer>
   
   
   <% for(let order of orderData) {%>
   
-      <div class="modal fade" id="exampleModal<%= order._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-l" role="document">
           <div class="modal-content">

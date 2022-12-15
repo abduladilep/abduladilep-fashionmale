@@ -12,8 +12,12 @@ const subCategory = require("../model/subCategoryScheema")
 
 
 const admiLogin = (req, res) => {
+    if(req.session.Email){
+        res.redirect("/admin/index")
+    }else{
 
     res.render('adminpages/login')
+    }
 }
 
 const adminPost = async (req, res) => {
@@ -29,6 +33,7 @@ const adminPost = async (req, res) => {
         if (validPassword) {
 
             req.session.Email = admin.Email
+
             res.redirect("/admin/index")
         }
 
@@ -46,6 +51,9 @@ const adminPost = async (req, res) => {
 
 const index = async (req, res) => {
     try {
+        if(req.session.Email){
+            console.log("sgghsa",req.session.Email);
+
         const dailySale = await CheckoutData.find({ $and: [{ createdAt: { $lt: Date.now(), $gt: Date.now() - 86400000 } }, { 'orderStatus.type': { $ne: 'Cancelled' } }] })
         let todaySale = 0
         dailySale.forEach((s) => {
@@ -89,9 +97,13 @@ const index = async (req, res) => {
         const delivered = await CheckoutData.find({ 'orderStatus.type': 'Delivered' }).count()
         const cancelled = await CheckoutData.find({ 'orderStatus.type': 'Cancelled' }).count()
 
-
+    
         res.render('adminpages/index', { todaySale, totalSale, todaySale, totalRevenue, completed, values, revenue, ordered, packed, shipped, delivered, cancelled })
-    } catch (err) {
+        
+    } else{
+        res.redirect('/admin/adminLogin')
+    }
+  } catch (err) {
         res.render('error')
     }
 }
@@ -99,9 +111,9 @@ const index = async (req, res) => {
 
 
 const productOrders = async (req, res) => {
-    console.log("vbn");
+ 
     try {
-        console.log("cvfdcc")
+       
         const orderData = await CheckoutData.find({onlinePaymentSuccess:true}).sort({ 'orderStatus.date': -1 })
         console.log(orderData);
         // orderId = mongoose.Types.ObjectId(orderData._Id)
@@ -110,7 +122,10 @@ const productOrders = async (req, res) => {
     } catch (err) {
         res.render('error', { err })
     }
+
+    
 }
+
 
 const orderItems = async (req, res) => {
     try {
@@ -128,10 +143,14 @@ const orderItems = async (req, res) => {
 }
 
 const userManagment = async (req, res) => {
+    if(req.session.Email){
 
     const showUser = await User.find({}).sort({ name: 1 })
-
     res.render('adminpages/userManagment', { showUser, msg: req.flash("invalid") })
+    }else{
+        res.redirect("/admin/adminLogin")
+    }
+
 }
 
 const editUser = async (req, res) => {
@@ -155,13 +174,16 @@ const editUser = async (req, res) => {
 }
 
 const manageProduct = async (req, res) => {
+    if(req.session.Email){
     const brand = await Brand.find({})
     const category = await Category.find({})
     const subcategory = await subCategory.find({})
-
     res.render('adminpages/ManageProduct', { brand, category, subcategory })
-}
+    }else{
+        res.redirect("/admin/adminLogin")
+    }
 
+}
 
 const editOrder = async (req, res) => {
     try {
@@ -185,7 +207,6 @@ const editOrder = async (req, res) => {
         // res.render('error', { err })
     }
 }
-
 
 const updateOrder = async (req, res) => {
     try {
@@ -215,16 +236,14 @@ const updateOrder = async (req, res) => {
     }
 }
 
-
-
 const logout = (req, res) => {
-    
-       
-       
+    try {
+        req.session.destroy()
         res.redirect("/admin/adminLogin");
- 
-
-
+    } catch (error) {
+        console.log(error.message)
+    }
+    
 }
 
 

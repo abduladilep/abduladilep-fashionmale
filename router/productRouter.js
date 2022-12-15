@@ -10,8 +10,6 @@ const upload = multer({ storage });
 
 product_Router.use(express.static('public/adminpublic'))
 
-
-
 product_Router.get('/Product', productController.product)
 
 product_Router.get('/addProduct', productController.addProduct)
@@ -25,7 +23,6 @@ product_Router.put('/deleteProduct/:id', productController.deleteProduct)
 
 
 product_Router.get('/productDetails/:id', productController.viewProductDetails)
-
 
 product_Router.get("/editproduct/:id", productController.editproduct)
 

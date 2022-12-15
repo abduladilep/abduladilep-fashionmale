@@ -6,7 +6,6 @@ const cartController = require("../controller/cartController")
 
 const { userSessionChecker } = require("../middlewear/middlewear")
 
-
 cart_Router.post('/addToCart', cartController.addToCart)
 
 cart_Router.get('/cart' ,cartController.userCart)

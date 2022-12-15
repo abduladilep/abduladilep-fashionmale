@@ -8,7 +8,7 @@ const userSessionChecker=(req,res,next)=>{
 }
 
 const adminSessonChecker =(req,res,next)=>{
-    if(req.session.admin){
+    if(req.session.Email){
         next()
     }
     else{

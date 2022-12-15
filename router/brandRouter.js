@@ -9,12 +9,9 @@ const brandController = require('../controller/brandController')
 
 brand_Router.use(express.static('public/adminpublic'))
 
-
-
 brand_Router.post("/addBrand", brandController.addBrand)
 
 brand_Router.put('/deleteBrand/:id', brandController.deleteBrand)
-
 
 
 

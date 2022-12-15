@@ -7,13 +7,17 @@ const mongoose = require('mongoose')
 const dateFormat = require("../utils/stringtoDate");
 
 const adminCouponPage = async (req, res) => {
-
+if(req.session.Email){
 
 
     const coupons = await Coupon.find();
 
 
     res.render("adminpages/adminCoupon", { message: req.flash('message'), coupons });
+}else{
+
+    res.redirect("/admin/adminLogin")
+}
 }
 
 //adding coupon 
@@ -27,7 +31,7 @@ const couponAdd = async (req, res) => {
 
     let cop = await Coupon.findOne({ couponCode });
 
-    // console.log("coop",cop);
+    
 
 
     let add;
@@ -94,37 +98,33 @@ const couponDelete = async (req, res) => {
 
 const applyCoupen = async (req, res) => {
 
-    
-
-
     try {
         const usercode = req.params.id
         console.log(usercode);
+        const userId = req.session.userId
         const code = await Coupon.find({ couponCode: usercode })
+const cartlist =await CheckoutData.find({userId:userId})
+
+const bill= cartlist[0].bill
+
+
         console.log(code);
         if (code) {
             console.log("code", code);
             if (code[0].expDate > Date.now()) {
 
 
-                
-
-
-                const userId = req.session.userId
-
-              
-
                 const user = await CheckoutData.findOneAndUpdate({ userId: userId }, { coupenCode: usercode })
              
 
                 const discount = code[0]
 
+               
 
                 res.send({ success: discount })
                 
-                console.log(res.send);
+              
             } else {
-                console.log("expired", code);
                 await Coupon.findOneAndDelete({ coupenCode: usercode })
                 req.flash('error', 'Invalid code')
                 res.redirect('back')

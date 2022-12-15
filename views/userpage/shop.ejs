@@ -39,7 +39,7 @@
         <div class="offcanvas__option">
             <div class="offcanvas__links">
                 <a href="#">Sign in</a>
-                <a href="#">FAQs</a>
+                
             </div>
 
         </div>
@@ -181,19 +181,7 @@
                                     </div>
                                     <div id="collapseTwo" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
-                                            <!-- <div class="shop__sidebar__brand">
-
-                                                <% let s=1; for(datas of newBrand) { %>
-                                                    <div class="nice-scroll"></div>
-                                                    <li class="main-nav-list">
-                                                        <%= datas.newBrand %>
-                                                            </a>
-                                                    </li>
-
-
-                                                    <% s++ }%>
-
-                                            </div> -->
+                                          
                                         </div>
                                     </div>
                                 </div>
@@ -252,21 +240,11 @@
                                     </div>
                                     <h5>₹<%=datas.product_price%>
                                     </h5>
-                                    <!-- <div class="product__color__select">
-                                        <label for="pc-4">
-                                            <input type="radio" id="pc-4">
-                                        </label>
-                                        <label class="active black" for="pc-5">
-                                            <input type="radio" id="pc-5">
-                                        </label>
-                                        <label class="grey" for="pc-6">
-                                            <input type="radio" id="pc-6">
-                                        </label>
-                                    </div> -->
+                                   
                                 </div>
                             </div>
                             <%}%>
-                                <!-- </div> -->
+                               
                     </div>
                 </div>
             </div>
@@ -367,7 +345,8 @@
                     </div>
                     <% if(user){ %>
                     <div class="modal-body">
-                        Product Add  TO Cart ..?
+                        Item added to your Cart successfully...
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -380,8 +359,8 @@
                         You are not logged in !!
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-secondary" 
+                        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-dark text-white" 
                             data-bs-dismiss="modal"><a href="/userLogin">
                             Go to Login Page</a></button>
                     </div>

@@ -10,6 +10,7 @@ const session = require('express-session')
 const filestore = require("session-file-store")(session);
 const flash = require('connect-flash')
 const methodOverride=require('method-override')
+const morgan = require('morgan')
 // const multer= require("multer")
 // const uplod = multer({dest:'uploads'})
 
@@ -87,6 +88,7 @@ app.use(methodOverride('_method'))
 app.set('view engine', 'ejs')
 
 
+app.use(morgan('dev'));
 
 app.use('/', userRouter)
 app.use('/admin', adminRouter)

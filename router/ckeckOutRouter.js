@@ -8,12 +8,11 @@ const {
 } = require('../\/middlewear/middlewear')
 
 checkoutRouter.get('/checkout/:id', userSessionChecker,checkoutController.checkoutPage)
-checkoutRouter.post('/placeOrder', userSessionChecker,checkoutController.placeOrder)
+checkoutRouter.post('/placeOrder/:id', userSessionChecker,checkoutController.placeOrder)
 checkoutRouter.get('/orderSuccess',  userSessionChecker,checkoutController.orderSuccess)
 checkoutRouter.post('/verifyPay', userSessionChecker, checkoutController.verifyPay)
 checkoutRouter.get('/viewOrders', userSessionChecker, checkoutController.viewOrders)
 checkoutRouter.post('/orderedProducts', userSessionChecker, checkoutController.orderedProducts)
-// checkoutRouter.get('/checkoutAddress', checkoutController.checkoutAddress)
 checkoutRouter.put('/cancelOrder/:id', checkoutController.cancelOrder)
 
 module.exports = checkoutRouter

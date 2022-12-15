@@ -12,20 +12,22 @@ const upload = multer({ storage });
 const { cloudinary } = require('../cloudinary/cloud')
 const User = require("../model/userScheema")
 
-// product_Router.use(express.static('public/adminpublic'))
 
 
 
 
 
 const product = async (req, res) => {
+    if(req.session.Email){
 
-    // const category = await Category.find({})
     const product = await Product.find({})
 
 
 
     res.render('adminpages/products', { product })
+}else{
+res.redirect("/admin/adminLogin")
+}
 }
 
 
@@ -87,6 +89,7 @@ const viewProductDetails = async (req, res) => {
     const user = await User.findOne({ email })
     try {
         const { id } = req.params
+        
         const details = await Product.findById(id)
         const category = await Category.find({})
         res.render('userpage/shop-details', { details, user, category })

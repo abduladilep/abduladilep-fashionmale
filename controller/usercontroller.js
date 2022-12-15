@@ -32,8 +32,7 @@ let transporter = nodemailer.createTransport({
     service: "Gmail",
 
     auth: {
-        // user:process.env.email,
-        // Pass:process.env.password
+       
         user: `adilep7165@gmail.com`,
         pass: `clmdzuatjaueqdcg`
 
@@ -78,7 +77,7 @@ const homepage = async (req, res) => {
 
         const hero =await heroData.find({}).sort({date: -1})
 
-        console.log("hero",hero)
+      
         
         const categories = await Category.find({})
 
@@ -121,16 +120,11 @@ const about = (req, res) => {
 
 
 const contact = async (req, res) => {
-    // const user=await User.find({})
+  
     const email = req.session.email
     const user = await User.findOne({ email })
-   
-    // const userId = users[0]._id
-    // const user = await User.findById(userId)
-
     const useraddress = user.userAddres
-    console.log("myacuntadrss", useraddress);
-
+   
     res.render('userpage/contact', { user, useraddress })
 
 }
@@ -241,12 +235,8 @@ const loginpost = async (req, res) => {
 }
 
 
-
-
-
-
 const Logout = (req, res) => {
-    console.log(req.session.useremail);
+   
     try {
         req.session.destroy()
         res.redirect("/")
@@ -269,25 +259,66 @@ const addAddress = async (req, res) => {
 }
 
 
+const adduserAddress = async (req, res) => {
+    try {
+        const userId = req.session.userId
+        const user = await User.findOne({ userId })
+        res.render('userpage/userAddres', { user })
+    } catch (err) {
+        // res.render('error',{err})
+    }
+}
+
+
 const saveAddress = async (req, res) => {
 
     try {
         const userId = req.session.userId
 
         if (!req.body) {
-            // req.flash('error', 'Empty fields are not allowed')
             res.redirect('back')
            
         }
         else {
 
-            const { Firstname, Lastname, street, houseNo, district, pincode, state, Email, mobile } = req.body;
+            const { Firstname,  street,  district, pincode,  Email, mobile } = req.body;
 
             try {
 
-                await User.findByIdAndUpdate(userId, { $push: { userAddres: { Firstname, Lastname, street, houseNo, district, pincode, state, Email, mobile } } });
+                await User.findByIdAndUpdate(userId, { $push: { userAddres: { Firstname, street, district, pincode,  Email, mobile } } });
 
                 res.redirect("/checkout/checkout/:id")
+               
+
+            } catch (err) {
+                console.log('err', err);
+                console.log("update faild");
+            }
+        }
+    } catch (err) {
+        // res.render('error',{err})
+    }
+}
+
+const savedAddress = async (req, res) => {
+
+    try {
+        const userId = req.session.userId
+
+        if (!req.body) {
+            res.redirect('back')
+           
+        }
+        else {
+
+            const { Firstname ,street, district, pincode, state, Email, mobile } = req.body;
+
+            try {
+
+                await User.findByIdAndUpdate(userId, { $push: { userAddres: { Firstname, street,  district, pincode, state, Email, mobile } } });
+
+                res.redirect("/myaccount")
+               
 
             } catch (err) {
                 console.log('err', err);
@@ -302,18 +333,15 @@ const saveAddress = async (req, res) => {
 
 const myaccount = async (req, res) => {
 
-    // const user=await User.find({})
+    
 
     const userId = req.session.userId
-    console.log("user",userId);
+  
     const email = req.session.useremail
     const user = await User.findOne({Email:email})
-    
-    console.log("user",email);
-    console.log("ffff",user);
+   
 
-    // const userId = users[0]._id
-    // const user = await User.findById(userId)
+    
     if(user){
 
     const useraddress = user.userAddres
@@ -328,13 +356,16 @@ const myaccount = async (req, res) => {
 const deleteAddress = async (req, res) => {
     try {
 
-        const _id = req.session.userId
-
-        const { id } = req.params
+        const email= req.session.useremail
+         const userid = req.session.userId
+  
+        const {addresid } = req.params
+      
         
-        // const deletion = await User.findByIdAndUpdate({_id,"userAddres":id},{$unset:{"userAddres":id}})
+      
+            await User.findByIdAndUpdate(userid,{ $pull: { userAddres: { _id: addresid}}} );
         
-        // deletion.remove()
+        
         res.send({ success: true })
     } catch (err) {
         // res.render('error',{err})
@@ -358,7 +389,9 @@ module.exports = {
     Logout,
     addAddress,
     saveAddress,
+    savedAddress,
     myaccount,
     deleteAddress,
+    adduserAddress
 
 }

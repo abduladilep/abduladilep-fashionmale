@@ -6,8 +6,6 @@ const Brand = require("../model/brandSchema")
 const { exists } = require("../model/userScheema")
 
 
-
-
 const addBrand = async (req, res) => {
     const brand = req.body.brand
   
