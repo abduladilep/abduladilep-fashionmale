@@ -28,12 +28,7 @@
 </head>
 
 <body>
-    <!-- Page Preloder -->
-    <!-- <div id="preloder">
-        <div class="loader"></div>
-    </div> -->
-
-    <!-- Offcanvas Menu Begin -->
+    
     <div class="offcanvas-menu-overlay"></div>
     <div class="offcanvas-menu-wrapper">
         <div class="offcanvas__option">
@@ -145,10 +140,7 @@
                 <div class="col-lg-3">
                     <div class="shop__sidebar">
                         <div class="shop__sidebar__search">
-                            <form action="#">
-                                <input type="text" placeholder="Search...">
-                                <button type="submit"><span class="icon_search"></span></button>
-                            </form>
+                           
                         </div>
                         <div class="shop__sidebar__accordion">
                             <div class="accordion" id="accordionExample">
@@ -395,28 +387,50 @@
 
 
             <script>
-                function wishlist(id) {
 
-                    fetch('/wishlist/addToWishlist/', {
+                
+        function wishlist(id) {
 
-                        method: 'post',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ id })
-                    })
-                        .then(res => res.json())
-                        .then(data => {
-                         (data.success == true) 
+fetch('/wishlist/addToWishlist/', {
 
-                         swal({
-                            title: "Add to Whishlist",
-                            text: "",
-                            icon: "success",
-                            button: "Done",
-                        });
-                        })
-                }
+    method: 'post',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ id })
+})
+    .then(res => res.json())
+    .then(data => {
+         (data.success == true) 
+           
+        
+         })
+      
+    
+}
+                // function wishlist(id) {
+
+                //     fetch('/wishlist/addToWishlist/', {
+
+                //         method: 'post',
+                //         headers: {
+                //             'Content-Type': 'application/json',
+                //         },
+                //         body: JSON.stringify({ id })
+                //     })
+                //         .then(res => res.json())
+                //         .then(data => {
+                //        if  (data.success == true) {
+
+                //          swal({
+                //             title: "Add to Whishlist",
+                //             text: "",
+                //             icon: "success",
+                //             button: "Done",
+                //         });
+                //     }
+                //         })
+                // }
             </script>
 
             <script>
@@ -482,11 +496,11 @@
 
 
 
-            <!-- 
+            
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 					integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-					crossorigin="anonymous"></script> -->
+					crossorigin="anonymous"></script> 
 
             <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 

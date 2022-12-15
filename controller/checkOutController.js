@@ -22,7 +22,7 @@ const checkoutPage = async (req, res) => {
 
             const user = await User.findById(userId)
 
-            const useraddres = user.userAddres
+            const useraddress = user.userAddres
 
 
 
@@ -53,7 +53,7 @@ const checkoutPage = async (req, res) => {
                 let grandtotal
                     grandtotal = subtotal + shipping
                
-                res.render("userpage/checkout", { cartList, grandtotal, shipping, subtotal, user, useraddres})
+                res.render("userpage/checkout", { cartList, grandtotal, shipping, subtotal, user, useraddress,userId})
 
             } else {
                 req.flash('error', 'You are not logged in')
@@ -93,10 +93,11 @@ const placeOrder = async (req, res) => {
         const shipping = 150;
         const bill = totalId
         let status = req.body.payment === 'cod' ? false : true
-
-let onlinePaymentSuccess=req.body.payment ==='cod' ? true:false
-onlinePaymentSuccess=req.body.payment ==='Online' ? false:true
- 
+        
+        let onlinePaymentSuccess=req.body.payment ==='cod' ? true:false
+        onlinePaymentSuccess=req.body.payment ==='Online' ? false:true
+        
+       
        
         const orderData = new CheckoutData({
             userId,
@@ -121,9 +122,12 @@ onlinePaymentSuccess=req.body.payment ==='Online' ? false:true
         orderData
             .save()
             .then((orderData) => {
-                if (orderData.paymentStatus == 'COD') {
+                console.log("orderdata",orderData);
+                if (orderData.paymentStatus == 'cod') {
+                    
                     const codSuccess = true
                     res.send({ codSuccess }) 
+                    
 
                 } else {
                     const orderId = orderData._id
@@ -144,6 +148,7 @@ onlinePaymentSuccess=req.body.payment ==='Online' ? false:true
 
         await CartItem.deleteOne({ _id: cartId })
       
+
     } catch (err) {
         res.render('error',{err})
     }
@@ -183,18 +188,14 @@ const orderSuccess = async (req, res) => {
 }
 
 const verifyPay = async (req, res) => {
-    console.log("verifypay");
+    
     
     verifyPay(req.body).then(() => {
         
-        console.log("verifypay", req.body);
         changePaymentStatus(req.body).then(() => {
             
-            
-           
-            
             res.json({ status: true })
-           
+
 
         }).catch((err) => {
             res.json({ status: false, errMsg: '' })

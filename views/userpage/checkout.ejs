@@ -14,6 +14,11 @@
         rel="stylesheet">
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+ 
+ 
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
@@ -79,10 +84,15 @@
                     <div class="col-lg-6 col-md-5">
                         <div class="header__top__right">
                             <div class="header__top__links">
-                                <a href="#">Sign in</a>
-                              
-                            </div>
-                         
+                                <% if(userId){%>
+                                    <a href="/Logout">Logout</a>
+                                    <%}
+                                    else{%>
+                                        <a href="/signin">Sign in</a>
+                                        <%} %>
+                                        
+                                    </div>
+                                   
                         </div>
                     </div>
                 </div>
@@ -147,9 +157,12 @@
             <div class="checkout__form">
                 <form id="pay" method="post" >
                    
-
+<% if(cartList.length >0) {%>
                     <input type="hidden" value="<%= cartList[0]._id %>" name="cartId">
-
+                    <%} else{%>
+                      
+                            <%}%>
+                        </div>
                   
                      
                     
@@ -179,11 +192,12 @@
 
                                             <th></th>
                                             <th>Address</th>
+                                            <th></th>
                                             <th>Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% let i=0; for(add of useraddres) { %>
+                                        <% let i=0; for(add of useraddress) { %>
                                             <tr>
                  
 
@@ -200,11 +214,11 @@
 
                                                 <td>
                                                     <h5 style="font-weight:bolder">
-                                                        <%= add.Firstname %>
+                                                        <%= add.Firstname +" "+add.Lastname %>
 
                                                     </h5>
                                                     <p>
-                                                        <%= add.street +" , "+add.houseNo +", "+add.district+" ,"+add.pincode%>
+                                                        <%= add.street +" , "+ add.houseNo +", "+add.state +", "+add.district+" ,"+add.pincode%>
 
                                                     </p>
                                                     <p>
@@ -212,9 +226,16 @@
                                                     </p>
                                                          
                                                 </td>
-                                                <td>    
-                                                  
-                                                </td>
+                                                
+                                                   <td></td>
+
+                                                    <td>
+                                                        <button class="btn btn-danger rounded m-3 " data-bs-toggle="modal"
+                                                        data-bs-target="#exampleModal<%= add._id %>" type="button">Delete</button>
+                        
+                        
+                                                        </td>
+                                             
                                             </tr>
                                             <%i++}%>
                                     </tbody>
@@ -273,13 +294,13 @@
                                                 <div class="checkout__input__checkbox">
                                                     <label for="payment">
                                                         COD
-                                                        <input type="radio" id="payment"  value="COD" name="payment">
+                                                        <input type="radio" id="payment"  value="cod" name="payment">
                                                         <span class="checkmark"></span>
                                                     </label>
                                                 </div>
                                                 <div class="checkout__input__checkbox">
                                                     <label for="paypal">
-                                                        online
+                                                        Razorpay
                                                         <input type="radio" id="paypal" value="Online" name="payment">
                                                         <span class="checkmark"></span>
                                                     </label>
@@ -363,16 +384,30 @@
     </footer>
     <!-- Footer Section End -->
 
-    <!-- Search Begin -->
-    <div class="search-model">
-        <div class="h-100 d-flex align-items-center justify-content-center">
-            <div class="search-close-switch">+</div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Search here.....">
-            </form>
+    <% for(let add of useraddress) { %>
+
+        <div class="modal fade" id="exampleModal<%= add._id %>" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Remove Address</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Do you want remove this Address ..?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" onclick="deleteAddress('<%= add._id %>')" class="btn btn-danger"
+                            data-dismiss="modal">Delete</button>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <!-- Search End -->
+        <% } %>
 
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
@@ -390,9 +425,7 @@ total=parseInt(total)
                 method: 'post',
                 data:$("#pay").serialize(),
                 success: (response) => {
-                    console.log("h7uy6gtr",response);
-                
-                    if (response.response.codSuccess) {
+                    if (response.codSuccess) {
                         location.href = '/checkout/orderSuccess'
                     } else {
                         razorpayPayment(response.response,response.orderId)
@@ -519,6 +552,30 @@ console.log("gffff",discount.minAmount);
 
 
 </script>
+<script>
+
+function deleteAddress(id) {
+    console.log("innnnnn",id);
+    fetch('/deleteAddress/' + id, {
+        method: 'delete',
+        headers: {
+            'Content-Type': 'application/json',
+            body: JSON.stringify({ hai: "jhj" })
+        }
+    })
+        .then(res => res.json())
+        .then(data => {
+            success: location.reload()
+        })
+}
+
+
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+crossorigin="anonymous"></script> 
 
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>

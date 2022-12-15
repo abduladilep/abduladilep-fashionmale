@@ -145,17 +145,18 @@
                         
                         <% if(useraddress){%>
                             <%  for(add of useraddress) { %>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Address</th>
-                                        <th>Delete</th>
-                                        
-                                    </tr>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Address</th>
+                                    <!-- <th></th> -->
+                                    <th>Delete</th>
                                     
-                                </thead>
-                                <tbody>
+                                </tr>
+                                
+                            </thead>
+                                    <tbody>
                                     <tr>
                                         <th>	<label class="control control--checkbox">
                                             <input type="radio" value=" <%= add.Firstname%><%=add.Lastname%>,<%=add.street%>,<%=add.houseNo%>,<%=add.district%>,<%=add.state%>,<%=add.pincode%>,<%=add.Email%>,<%=add.mobile%>" name="address"
@@ -166,7 +167,7 @@
                                                 <div class="control_indicator"></div>
                                         </label>
                                     </th>
-                                    <td><h5 style="font-weight:bolder">
+                                    <td><h5>
 
                                         <%= add.Firstname + "  " +add.Lastname%>
     
@@ -182,9 +183,11 @@
                                     </tr>
                                 </tbody>
                             </table>
-                                    <%}}else{%>
-                                        <h4>Address emty</h4>   
-                                        <%}%>
+                                <%}}else{%>
+                                   
+                                    <h4>Address is Empty</h4>   
+                                    
+                                    <%}%>
                                 <div class="btn btn-dark text-white"><a href="/adduserAddress">Add Address</a></div>
                             </div>
 

@@ -210,6 +210,8 @@ const verify = async (req, res) => {
 
 }
 const loginpost = async (req, res) => {
+
+    try{
     const { Email, Password } = req.body
 
     const user = await User.findOne({ Email })
@@ -225,13 +227,17 @@ const loginpost = async (req, res) => {
         if (user.state) {
             console.log(req.headers.referer);
 
-            res.redirect('..')
+            res.redirect('/')
         }
     }
     else {
        
         res.redirect('/userLogin')
     }
+}catch(err){
+    res.redirect("/userLogin")
+    console.log("err",msg);
+}
 }
 
 
@@ -281,11 +287,11 @@ const saveAddress = async (req, res) => {
         }
         else {
 
-            const { Firstname,  street,  district, pincode,  Email, mobile } = req.body;
+            const { Firstname, Lastname,houseNo, street,  district, pincode, state, Email, mobile } = req.body;
 
             try {
 
-                await User.findByIdAndUpdate(userId, { $push: { userAddres: { Firstname, street, district, pincode,  Email, mobile } } });
+                await User.findByIdAndUpdate(userId, { $push: { userAddres: { Firstname, Lastname, houseNo, street, district, pincode, state, Email, mobile } } });
 
                 res.redirect("/checkout/checkout/:id")
                
@@ -311,11 +317,11 @@ const savedAddress = async (req, res) => {
         }
         else {
 
-            const { Firstname ,street, district, pincode, state, Email, mobile } = req.body;
+            const { Firstname,Lastname ,street,houseNo, district, pincode, state, Email, mobile } = req.body;
 
             try {
 
-                await User.findByIdAndUpdate(userId, { $push: { userAddres: { Firstname, street,  district, pincode, state, Email, mobile } } });
+                await User.findByIdAndUpdate(userId, { $push: { userAddres: { Firstname,Lastname, street,houseNo, district, pincode, state, Email, mobile } } });
 
                 res.redirect("/myaccount")
                
@@ -355,19 +361,13 @@ const myaccount = async (req, res) => {
 
 const deleteAddress = async (req, res) => {
     try {
-
         const email= req.session.useremail
-         const userid = req.session.userId
-  
-        const {addresid } = req.params
-      
-        
-      
-            await User.findByIdAndUpdate(userid,{ $pull: { userAddres: { _id: addresid}}} );
-        
+         const addresid  = req.params.id
+        await User.updateOne({Email:email},{ $pull: { userAddres: { _id: addresid}}} );
         
         res.send({ success: true })
     } catch (err) {
+        console.log(err);
         // res.render('error',{err})
     }
 }
