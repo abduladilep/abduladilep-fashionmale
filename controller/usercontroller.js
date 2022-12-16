@@ -26,20 +26,21 @@ let msg = "";
 
 
 let transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
+    host: `smtp.gmail.com`,
     port: 465,
     secure: true,
     service: "Gmail",
-
+    
     auth: {
-       
+        
         user: `adilep7165@gmail.com`,
         pass: `clmdzuatjaueqdcg`
-
-
-
+        
+        
+        
     },
 })
+
 
 const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
 
@@ -100,7 +101,7 @@ const homepage = async (req, res) => {
 
 
 const shop = async (req, res) => {
-   
+    
     const newProduct = await product.find()
     const newCategory = await Category.find()
     const newsubCategory = await subCategory.find()
@@ -120,7 +121,7 @@ const about = (req, res) => {
 
 
 const contact = async (req, res) => {
-  
+    
     const email = req.session.email
     const user = await User.findOne({ email })
     const useraddress = user.userAddres
