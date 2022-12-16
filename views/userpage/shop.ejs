@@ -204,8 +204,8 @@
                             <div class="product__item col-md-3 mr-5">
                                 <div class="row product__item__pic set-bg " data-setbg="<%= datas.image[0].url%>">
                                     <ul class="product__hover">
-                                        <li><a href=""><img src="img/icon/heart.png"
-                                                    onclick="wishlist('<%= datas._id%>')" alt=""></a></li>
+                                        <li><a href="#"><img src="img/icon/heart.png"
+                                                    onclick="wishlist('<%= datas._id %>')" alt=""></a></li>
                                         <!-- <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a> -->
                                         </li>
                                         <!-- <li><a href="#"><img src="img/icon/search.png" alt=""></a></li> -->
@@ -390,6 +390,7 @@
 
                 
         function wishlist(id) {
+            console.log("inninn");
 
 fetch('/wishlist/addToWishlist/', {
 
@@ -401,42 +402,23 @@ fetch('/wishlist/addToWishlist/', {
 })
     .then(res => res.json())
     .then(data => {
-         (data.success == true) 
-           
-        
+       (data.success == true) 
+         swal({
+                            title: "Add to Whishlist",
+                            text: "",
+                            icon: "success",
+                            button: "Done",
+                        });
+                    
          })
+        }
       
     
-}
-                // function wishlist(id) {
-
-                //     fetch('/wishlist/addToWishlist/', {
-
-                //         method: 'post',
-                //         headers: {
-                //             'Content-Type': 'application/json',
-                //         },
-                //         body: JSON.stringify({ id })
-                //     })
-                //         .then(res => res.json())
-                //         .then(data => {
-                //        if  (data.success == true) {
-
-                //          swal({
-                //             title: "Add to Whishlist",
-                //             text: "",
-                //             icon: "success",
-                //             button: "Done",
-                //         });
-                //     }
-                //         })
-                // }
             </script>
 
             <script>
                 function selectCategory(catagoryId) {
                     const datas = document.getElementById("product")
-                    console.log("kooooui", datas);
                     let allProducts = '';
                     fetch("/catagorySort", {
                         method: "post",
